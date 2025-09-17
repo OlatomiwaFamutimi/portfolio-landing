@@ -25,3 +25,27 @@ p {
 p::after {
   content: " 🚀";
 }
+section {
+  margin: 40px auto;
+  max-width: 600px;
+  text-align: left;
+}
+
+h2 {
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+
+ul {
+  list-style-type: square;
+  padding-left: 20px;
+}
+
+a {
+  color: #3498db;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
