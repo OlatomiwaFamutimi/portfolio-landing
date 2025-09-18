@@ -125,4 +125,9 @@ nav ul li a.active {
   color: #ff6600;         /* Bright orange */
   font-weight: bold;      /* Make it bold */
   border-bottom: 2px solid #ff6600; /* Underline effect */
+}/* Highlight the active navigation link */
+nav ul li a.active {
+  color: #ff6600;         /* Bright orange */
+  font-weight: bold;      /* Make it bold */
+  border-bottom: 2px solid #ff6600; /* Underline effect */
 }
