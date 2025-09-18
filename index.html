@@ -1,16 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Portfolio</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Navbar -->
+  <!-- Navigation -->
   <nav>
     <ul>
-      <li><a href="#about">About</a></li>
+      <li><a href="#about" class="active">About</a></li>
       <li><a href="#projects">Projects</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
@@ -22,13 +20,13 @@
     <p>Welcome to my first portfolio landing page 🚀</p>
   </header>
 
-  <!-- About -->
+  <!-- About Section -->
   <section id="about">
     <h2>About Me</h2>
     <p>I am a web developer passionate about building clean and functional designs.</p>
   </section>
 
-  <!-- Projects -->
+  <!-- Projects Section -->
   <section id="projects">
     <h2>Projects</h2>
     <ul>
@@ -37,10 +35,50 @@
     </ul>
   </section>
 
-  <!-- Contact -->
+  <!-- Contact Section -->
   <section id="contact">
     <h2>Contact</h2>
     <p>Email: <a href="mailto:famutimiolatomiwa7@gmail.com">famutimiolatomiwa7@gmail.com</a></p>
   </section>
+
+  <!-- JavaScript to highlight active nav link -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const navLinks = document.querySelectorAll('nav a[href^="#"]');
+      const sections = document.querySelectorAll('section[id]');
+
+      const linkById = {};
+      navLinks.forEach(a => {
+        const id = a.getAttribute('href').slice(1);
+        linkById[id] = a;
+      });
+
+      function setActive(id) {
+        navLinks.forEach(a => a.classList.remove('active'));
+        if (linkById[id]) linkById[id].classList.add('active');
+      }
+
+      navLinks.forEach(a => {
+        a.addEventListener('click', () => {
+          const id = a.getAttribute('href').slice(1);
+          setActive(id);
+        });
+      });
+
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            setActive(entry.target.id);
+          }
+        });
+      }, {
+        root: null,
+        rootMargin: '0px 0px -60% 0px',
+        threshold: 0.1
+      });
+
+      sections.forEach(sec => observer.observe(sec));
+    });
+  </script>
 </body>
 </html>
