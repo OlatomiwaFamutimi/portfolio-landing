@@ -12,4 +12,14 @@ function greet() {
 }console.log("JavaScript is working!");
 alert("Welcome to my portfolio!");// Test script to confirm JavaScript is linked
 alert("Hello Olatomiwa! Your JavaScript file is working 🎉");
-console.log("JavaScript is connected and running!");
+console.log("JavaScript is connected and running!");// Get the button by its ID
+const button = document.getElementById("colorBtn");
+
+// Add a click event listener
+button.addEventListener("click", () => {
+  // Generate a random color
+  const randomColor = "#" + Math.floor(Math.random()*16777215).toString(16);
+
+  // Apply the color as the background
+  document.body.style.backgroundColor = randomColor;
+});
