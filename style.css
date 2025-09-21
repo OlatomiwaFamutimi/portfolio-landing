@@ -130,4 +130,12 @@ nav ul li a.active {
   color: #ff6600;         /* Bright orange */
   font-weight: bold;      /* Make it bold */
   border-bottom: 2px solid #ff6600; /* Underline effect */
+}.dark-mode {
+  background-color: #222;
+  color: white;
+}#welcomeMsg {
+  font-size: 18px;
+  font-weight: bold;
+  color: #39c12; /* nice green */
+  margin-top: 10px;
 }

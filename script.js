@@ -22,4 +22,13 @@ button.addEventListener("click", () => {
 
   // Apply the color as the background
   document.body.style.backgroundColor = randomColor;
+});const toggleBtn = document.getElementById("toggleModeBtn");
+
+toggleBtn.addEventListener("click", () => {
+  document.body.classList.toggle("dark-mode");
+});const welcomeBtn = document.getElementById("welcomeBtn");
+const welcomeMsg = document.getElementById("welcomeMsg");
+
+welcomeBtn.addEventListener("click", () => {
+  welcomeMsg.textContent = "🎉 Welcome to Olatomiwa’s Portfolio!";
 });
