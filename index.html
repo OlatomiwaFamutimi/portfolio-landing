@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Portfolio</title>
   <link rel="stylesheet" href="style.css">
 </head>
@@ -30,58 +32,22 @@
   <section id="projects">
     <h2>Projects</h2>
     <ul>
-      <li><a href="#" target="_blank">Portfolio Website</a> – Built with HTML & CSS</li>
-      <li><a href="#" target="_blank">E-commerce Mockup</a> – Styled with Bootstrap</li>
+      <li><a href="#" target="_blank">Portfolio Website</a> — Built with HTML & CSS</li>
+      <li><a href="#" target="_blank">E-commerce Mockup</a> — Styled with Bootstrap</li>
     </ul>
   </section>
-<script src="script.js"></script><script src="script.js"></script>
-</body>
-</html>
+
   <!-- Contact Section -->
   <section id="contact">
     <h2>Contact</h2>
     <p>Email: <a href="mailto:famutimiolatomiwa7@gmail.com">famutimiolatomiwa7@gmail.com</a></p>
+
+    <!-- Buttons for JavaScript Events -->
+    <button id="toggleBtn">Toggle Dark Mode</button>
+    <button id="welcomeBtn">Show Welcome Message</button>
   </section>
 
-  <!-- JavaScript to highlight active nav link -->
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const navLinks = document.querySelectorAll('nav a[href^="#"]');
-      const sections = document.querySelectorAll('section[id]');
-
-      const linkById = {};
-      navLinks.forEach(a => {
-        const id = a.getAttribute('href').slice(1);
-        linkById[id] = a;
-      });
-
-      function setActive(id) {
-        navLinks.forEach(a => a.classList.remove('active'));
-        if (linkById[id]) linkById[id].classList.add('active');
-      }
-
-      navLinks.forEach(a => {
-        a.addEventListener('click', () => {
-          const id = a.getAttribute('href').slice(1);
-          setActive(id);
-        });
-      });
-
-      const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            setActive(entry.target.id);
-          }
-        });
-      }, {
-        root: null,
-        rootMargin: '0px 0px -60% 0px',
-        threshold: 0.1
-      });
-
-      sections.forEach(sec => observer.observe(sec));
-    });
-  </script>
+  <!-- Link to JavaScript -->
+  <script src="script.js"></script>
 </body>
-</html><button id="toggleModeBtn">Toggle Dark Mode</button><button id="welcomeBtn">Show Welcome Message</button>
-<p id="welcomeMsg"></p>
+</html>
