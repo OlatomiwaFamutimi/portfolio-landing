@@ -37,4 +37,48 @@ body.dark {
 body.dark nav { background: #0a0d10; }
 body.dark a { color: #bcd; }
 body.dark nav a.active,
-body.dark nav a:hover { border-bottom-color: #55aaff; }
+body.dark nav a:hover { border-bottom-color: #55aaff; }/* Dark mode */
+body.dark {
+  background: #121212;
+  color: #eee;
+}
+
+/* Active nav underline (on scroll) */
+nav a.active {
+  border-bottom: 2px solid #f66;
+  color: #f66;
+}
+You sent
+/* Nav links: hover + active state */
+nav a {
+  position: relative;
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.3s ease;
+}
+
+nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0;
+  height: 2px;
+  background-color: #f66;
+  transition: width 0.3s ease;
+}
+
+/* Hover effect */
+nav a:hover::after {
+  width: 100%;
+}
+
+/* Active link from JS scroll-spy */
+nav a.active {
+  color: #f66;
+}
+
+nav a.active::after {
+  width: 100%;
+}
+
