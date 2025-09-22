@@ -1,43 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Olatomiwa's Portfolio</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Olatomiwa | Portfolio</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- Projects Section -->
-  <section id="projects">
+
+  <!-- Top Navigation -->
+  <nav class="site-nav">
+    <ul>
+      <li><a class="nav-link" href="#about">About</a></li>
+      <li><a class="nav-link" href="#projects">Projects</a></li>
+      <li><a class="nav-link" href="#contact">Contact</a></li>
+      <li><a class="nav-link" href="#demos">JS Demos</a></li>
+    </ul>
+  </nav>
+
+  <!-- About / Hero -->
+  <section id="about" class="section">
+    <h1>Hello, I’m Olatomiwa</h1>
+    <p>Welcome to my first portfolio landing page 🚀</p>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects" class="section">
     <h2>Projects</h2>
     <ul>
-      <li><a href="#" target="_blank">Portfolio Website</a></li>
-      <li><a href="#" target="_blank">E-commerce Mockup</a></li>
+      <li><a href="#" target="_blank">Portfolio Website</a> — Built with HTML &amp; CSS</li>
+      <li><a href="#" target="_blank">E-commerce Mockup</a> — Styled with Bootstrap</li>
     </ul>
   </section>
 
-  <!-- Contact Section -->
-  <section id="contact">
+  <!-- Contact -->
+  <section id="contact" class="section">
     <h2>Contact</h2>
-    <p>Email: 
-      <a href="mailto:famutimiolatomiwa7@gmail.com">famutimiolatomiwa7@gmail.com</a>
-    </p>
+    <p>Email: <a href="mailto:famutimiolatomiwa7@gmail.com">famutimiolatomiwa7@gmail.com</a></p>
   </section>
 
-  <!-- Buttons for JavaScript Events -->
-  <section id="events">
+  <!-- JavaScript Demos -->
+  <section id="demos" class="section">
     <h2>JavaScript Demos</h2>
-    <button id="toggleBtn">Toggle Dark Mode</button>
-    <button id="welcomeBtn">Show Welcome Message</button>
-    <button id="checkDayBtn">Check Day</button>
-    <button id="generateBtn">Generate Numbers</button>
-    <!-- Placeholder for messages -->
-    <p id="dayMessage"></p>
-    <!-- Placeholder for generated numbers -->
-    <ul id="numberList"></ul>
+
+    <div class="btn-row">
+      <button id="toggleBtn">Toggle Dark Mode</button>
+      <button id="welcomeBtn">Show Welcome Message</button>
+      <button id="checkDayBtn">Check Day</button>
+      <button id="generateBtn">Generate Numbers</button>
+    </div>
+
+    <!-- Where JS writes messages & numbers -->
+    <p id="dayMessage" class="msg"></p>
+    <ul id="numberList" class="numbers"></ul>
   </section>
 
-  <!-- Link to JavaScript -->
   <script src="script.js"></script>
 </body>
 </html>
