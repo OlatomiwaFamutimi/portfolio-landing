@@ -1,72 +1,69 @@
 // Quick proof the file is loading:
-console.log("✅ script.js loaded");
+console.log('✅ script.js loaded');
 
-document.addEventListener("DOMContentLoaded", () => {
-  // Grab elements (ensure IDs match the HTML)
-  const toggleBtn    = document.getElementById("toggleBtn");
-  const welcomeBtn   = document.getElementById("welcomeBtn");
-  const checkDayBtn  = document.getElementById("checkDayBtn");
-  const generateBtn  = document.getElementById("generateBtn");
-  const dayMsg       = document.getElementById("dayMessage");
-  const numbersList  = document.getElementById("numbersList");
-  const navLinks     = [...document.querySelectorAll(".nav-link")];
+document.addEventListener('DOMContentLoaded', () => {
+  // Grab elements
+  const toggleBtn   = document.getElementById('toggleBtn');
+  const welcomeBtn  = document.getElementById('welcomeBtn');
+  const checkDayBtn = document.getElementById('checkDayBtn');
+  const generateBtn = document.getElementById('generateBtn');
+  const dayMsg      = document.getElementById('dayMessage');
+  const numbersList = document.getElementById('numbersList');
+
+  // Guard logs (helpful if something doesn't click)
+  [
+    ['toggleBtn', toggleBtn],
+    ['welcomeBtn', welcomeBtn],
+    ['checkDayBtn', checkDayBtn],
+    ['generateBtn', generateBtn],
+    ['dayMessage', dayMsg],
+    ['numbersList', numbersList],
+  ].forEach(([name, el]) => { if (!el) console.warn(⚠️ Missing element: ${name}); });
 
   // 1) Dark mode
-  toggleBtn?.addEventListener("click", () => {
-    document.body.classList.toggle("dark");
+  toggleBtn?.addEventListener('click', () => {
+    document.body.classList.toggle('dark');
   });
 
-  // 2) Welcome popup + message
-  welcomeBtn?.addEventListener("click", () => {
-    alert("Hello Olatomiwa! Your JavaScript is working 🛠️");
-    dayMsg.textContent = "Welcome to my portfolio!";
+  // 2) Welcome popup + inline message
+  welcomeBtn?.addEventListener('click', () => {
+    alert('Hello Olatomiwa, your JavaScript is working 💪');
+    if (dayMsg) dayMsg.textContent = 'Welcome to my portfolio!';
   });
 
   // 3) Check day (switch)
-  checkDayBtn?.addEventListener("click", () => {
-    const names = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+  checkDayBtn?.addEventListener('click', () => {
+    const names = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
     const dayName = names[new Date().getDay()];
-    let message;
-    switch (dayName) {
-      case "Saturday":
-      case "Sunday":
-        message = Today is ${dayName} — weekend 👟; break;
-      default:
-        message = Today is ${dayName} — keep coding! 💻; break;
-    }
-    dayMsg.textContent = message; // show on page
-    alert(message);               // and popup
+    const message = (dayName === 'Saturday' || dayName === 'Sunday')
+      ? Today is ${dayName} — weekend 🎉
+      : Today is ${dayName} — keep coding! 👨‍💻;
+    if (dayMsg) dayMsg.textContent = message;
+    alert(message);
   });
 
-  // 4) Generate 1..10 list (for loop)
-  generateBtn?.addEventListener("click", () => {
-    numbersList.innerHTML = "";
+  // 4) Generate numbers (loop practice)
+  generateBtn?.addEventListener('click', () => {
+    if (!numbersList) return;
+    numbersList.innerHTML = '';
     for (let i = 1; i <= 10; i++) {
-      const li = document.createElement("li");
+      const li = document.createElement('li');
       li.textContent = Number ${i};
       numbersList.appendChild(li);
     }
   });
 
-  // 5) Highlight nav link on scroll (IntersectionObserver)
-  const sectionsById = ["about","projects","contact","jsdemos"]
-    .map(id => document.getElementById(id))
-    .filter(Boolean);
+  // 5) Active nav link on scroll (no special class required)
+  const navLinks = document.querySelectorAll('nav a');
+  const sections = document.querySelectorAll('section[id]');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) {
+        const id = #${e.target.id};
+        navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === id));
+      }
+    });
+  }, { threshold: 0.6 });
 
-  function setActive(id) {
-    navLinks.forEach(a => a.classList.remove("active"));
-    const match = navLinks.find(a => a.getAttribute("href") === #${id});
-    match?.classList.add("active");
-  }
-
-  const observer = new IntersectionObserver(
-    entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) setActive(entry.target.id);
-      });
-    },
-    { root: null, threshold: 0.6 } // when 60% of a section is visible
-  );
-
-  sectionsById.forEach(sec => observer.observe(sec));
+  sections.forEach(sec => observer.observe(sec));
 });
