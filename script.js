@@ -29,4 +29,26 @@ generateBtn.addEventListener("click", () => {
     li.textContent = "Number " + i;
     numberList.appendChild(li);
   }
+});document.getElementById("dayBtn").addEventListener("click", () => {
+  const today = new Date().getDay(); // 0 = Sunday, 1 = Monday, etc.
+  let message = "";
+
+  switch (today) {
+    case 0:
+      message = "It's Sunday! Time to rest 😴";
+      break;
+    case 1:
+      message = "Happy Monday! Let’s start the week 💪";
+      break;
+    case 3:
+      message = "It’s Wednesday! Midweek checkpoint 📝";
+      break;
+    case 5:
+      message = "Friday is here 🎉 Weekend loading...";
+      break;
+    default:
+      message = "Just another day, keep coding 🚀";
+  }
+
+  document.getElementById("dayMessage").textContent = message;
 });
