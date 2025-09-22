@@ -101,4 +101,5 @@ document.addEventListener('DOMContentLoaded', () => {
     dayMsg.textContent = message;   // show on page
     alert(Today is ${dayName});   // popup as well
   });
-});
+});dayMsg.textContent = Today is ${dayName};
+alert(Today is ${dayName});
