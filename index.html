@@ -2,45 +2,53 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Olatomiwa | Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My Portfolio</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- Top Navigation -->
-  <nav class="site-nav">
+  <!-- Navigation -->
+  <nav>
     <ul>
-      <li><a class="nav-link" href="#about">About</a></li>
-      <li><a class="nav-link" href="#projects">Projects</a></li>
-      <li><a class="nav-link" href="#contact">Contact</a></li>
-      <li><a class="nav-link" href="#demos">JS Demos</a></li>
+      <li><a href="#about"   class="nav-link active">About</a></li>
+      <li><a href="#projects" class="nav-link">Projects</a></li>
+      <li><a href="#contact"  class="nav-link">Contact</a></li>
+      <li><a href="#jsdemos"  class="nav-link">JS Demos</a></li>
     </ul>
   </nav>
 
-  <!-- About / Hero -->
-  <section id="about" class="section">
-    <h1>Hello, I’m Olatomiwa</h1>
+  <!-- Hero -->
+  <header class="hero" id="about">
+    <h1>Hello, I'm Olatomiwa</h1>
     <p>Welcome to my first portfolio landing page 🚀</p>
-  </section>
+  </header>
 
   <!-- Projects -->
-  <section id="projects" class="section">
+  <section id="projects">
     <h2>Projects</h2>
     <ul>
-      <li><a href="#" target="_blank">Portfolio Website</a> — Built with HTML &amp; CSS</li>
-      <li><a href="#" target="_blank">E-commerce Mockup</a> — Styled with Bootstrap</li>
+      <li>
+        <a href="#" target="_blank">Portfolio Website</a>
+        <span> — Built with HTML &amp; CSS</span>
+      </li>
+      <li>
+        <a href="#" target="_blank">E-commerce Mockup</a>
+        <span> — Styled with Bootstrap</span>
+      </li>
     </ul>
   </section>
 
   <!-- Contact -->
-  <section id="contact" class="section">
+  <section id="contact">
     <h2>Contact</h2>
-    <p>Email: <a href="mailto:famutimiolatomiwa7@gmail.com">famutimiolatomiwa7@gmail.com</a></p>
+    <p>Email:
+      <a href="mailto:famutimiolatomiwa7@gmail.com">famutimiolatomiwa7@gmail.com</a>
+    </p>
   </section>
 
-  <!-- JavaScript Demos -->
-  <section id="demos" class="section">
+  <!-- JS Demos -->
+  <section id="jsdemos">
     <h2>JavaScript Demos</h2>
 
     <div class="btn-row">
@@ -50,11 +58,11 @@
       <button id="generateBtn">Generate Numbers</button>
     </div>
 
-    <!-- Where JS writes messages & numbers -->
-    <p id="dayMessage" class="msg"></p>
-    <ul id="numberList" class="numbers"></ul>
+    <p id="dayMessage"><em>Message will appear here…</em></p>
+    <ul id="numbersList"></ul>
   </section>
 
+  <!-- Keep the script tag LAST so the DOM exists when JS runs -->
   <script src="script.js"></script>
 </body>
 </html>
