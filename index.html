@@ -48,21 +48,19 @@
   </section>
 
   <!-- JS Demos -->
-  <section id="jsdemos">
-    <h2>JavaScript Demos</h2>
+  <section id="demos">
+  <h2>JavaScript Demos</h2>
 
-    <div class="btn-row">
-      <button id="toggleBtn">Toggle Dark Mode</button>
-      <button id="welcomeBtn">Show Welcome Message</button>
-      <button id="checkDayBtn">Check Day</button>
-      <button id="generateBtn">Generate Numbers</button>
-    </div>
+  <button id="toggleBtn">Toggle Dark Mode</button>
+  <button id="welcomeBtn">Show Welcome Message</button>
+  <button id="checkDayBtn">Check Day</button>
+  <button id="generateBtn">Generate Numbers</button>
 
-    <p id="dayMessage"><em>Message will appear here…</em></p>
-    <ul id="numbersList"></ul>
-  </section>
+  <p id="message">Message will appear here...</p>
+  <ul id="numbersList"></ul>
+</section>
 
-  <!-- Keep the script tag LAST so the DOM exists when JS runs -->
-  <script src="script.js"></script>
+<!-- Load JS with defer --> 
+<script src="script.js" defer></script>
 </body>
 </html>

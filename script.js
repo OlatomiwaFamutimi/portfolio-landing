@@ -1,62 +1,47 @@
-// Prove the file is loaded
-console.log("✅ script.js loaded");
+// Quick proof the file loads
+console.log("✅ script.js is loading...");
 
-// Run after the DOM is ready
 document.addEventListener("DOMContentLoaded", () => {
-  // Small helper
-  const $ = (id) => document.getElementById(id);
+  console.log("✅ DOM fully loaded");
 
-  // Grab elements (may be null; we guard with ?. below)
-  const toggleBtn   = $("toggleBtn");
-  const welcomeBtn  = $("welcomeBtn");
-  const checkDayBtn = $("checkDayBtn");
-  const generateBtn = $("generateBtn");
-  const dayMsg      = $("dayMessage");
-  const numbersList = $("numbersList");
+  // Grab elements
+  const toggleBtn = document.getElementById("toggleBtn");
+  const welcomeBtn = document.getElementById("welcomeBtn");
+  const checkDayBtn = document.getElementById("checkDayBtn");
+  const generateBtn = document.getElementById("generateBtn");
+  const message = document.getElementById("message");
+  const numbersList = document.getElementById("numbersList");
 
-  // 1) Toggle dark mode
-  toggleBtn?.addEventListener("click", () => {
+  console.log({ toggleBtn, welcomeBtn, checkDayBtn, generateBtn, message, numbersList });
+
+  // Dark mode
+  toggleBtn.addEventListener("click", () => {
+    console.log("🌙 Dark mode toggled");
     document.body.classList.toggle("dark");
   });
 
-  // 2) Show welcome popup
-  welcomeBtn?.addEventListener("click", () => {
-    alert("Hello Olatomiwa! 🎉 Your JavaScript is working.");
+  // Welcome message
+  welcomeBtn.addEventListener("click", () => {
+    console.log("👋 Welcome clicked");
+    message.textContent = "Welcome to my portfolio!";
   });
 
-  // 3) Check Day (switch)
-  checkDayBtn?.addEventListener("click", () => {
-    const names = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
-    const dayName = names[new Date().getDay()];
-    const message = (dayName === "Saturday" || dayName === "Sunday")
-      ? ${dayName} – weekend 🥳
-      : ${dayName} – keep coding! 💪;
-
-    if (dayMsg) dayMsg.textContent = Today is ${dayName};
-    alert(Today is ${dayName});
-    console.log(message);
+  // Check day
+  checkDayBtn.addEventListener("click", () => {
+    console.log("📅 Check day clicked");
+    const days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+    const today = new Date().getDay();
+    message.textContent = Today is ${days[today]};
   });
 
-  // 4) Generate numbers (loop practice)
-  generateBtn?.addEventListener("click", () => {
-    if (!numbersList) return;
+  // Generate numbers
+  generateBtn.addEventListener("click", () => {
+    console.log("🔢 Generate numbers clicked");
     numbersList.innerHTML = "";
     for (let i = 1; i <= 10; i++) {
       const li = document.createElement("li");
-      li.textContent = Number ${i};
+      li.textContent = i;
       numbersList.appendChild(li);
     }
   });
-
-  // 5) Nav active underline on scroll (scroll spy)
-  const sections = document.querySelectorAll("section[id]");
-  const navLinks = document.querySelectorAll("nav a[href^='#']");
-  const setActive = (id) => {
-    navLinks.forEach(a => a.classList.toggle("active", a.getAttribute("href") === #${id}));
-  };
-  const io = new IntersectionObserver(
-    (entries) => entries.forEach(e => { if (e.isIntersecting) setActive(e.target.id); }),
-    { root: null, threshold: 0.6 }
-  );
-  sections.forEach(s => io.observe(s));
 });
