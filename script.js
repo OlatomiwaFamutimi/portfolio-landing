@@ -51,4 +51,25 @@ generateBtn.addEventListener("click", () => {
   }
 
   document.getElementById("dayMessage").textContent = message;
+});document.addEventListener('DOMContentLoaded', () => {
+  const checkBtn = document.getElementById('checkDayBtn');
+  if (!checkBtn) return; // button not on the page yet
+
+  checkBtn.addEventListener('click', () => {
+    const dayNum = new Date().getDay(); // 0..6  (0 = Sun)
+    let dayName;
+
+    switch (dayNum) {
+      case 0: dayName = 'Sunday'; break;
+      case 1: dayName = 'Monday'; break;
+      case 2: dayName = 'Tuesday'; break;
+      case 3: dayName = 'Wednesday'; break;
+      case 4: dayName = 'Thursday'; break;
+      case 5: dayName = 'Friday'; break;
+      case 6: dayName = 'Saturday'; break;
+      default: dayName = 'Unknown';
+    }
+
+    alert(Today is ${dayName});
+  });
 });
