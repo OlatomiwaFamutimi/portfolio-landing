@@ -73,3 +73,32 @@ generateBtn.addEventListener("click", () => {
     alert(Today is ${dayName});
   });
 });
+document.addEventListener('DOMContentLoaded', () => {
+  const checkBtn = document.getElementById('checkDayBtn');
+  const dayMsg = document.getElementById('dayMessage');
+
+  if (!checkBtn) {
+    console.warn('checkDayBtn not found in the DOM');
+    return;
+  }
+
+  checkBtn.addEventListener('click', () => {
+    const dayNum = new Date().getDay(); // 0..6 (Sun..Sat)
+    const names = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    const dayName = names[dayNum];
+
+    // simple switch demo (optional message tweak)
+    let message;
+    switch (dayName) {
+      case 'Saturday':
+      case 'Sunday':
+        message = Today is ${dayName} – weekend 🎉;
+        break;
+      default:
+        message = Today is ${dayName} – keep coding! 💻;
+    }
+
+    dayMsg.textContent = message;   // show on page
+    alert(Today is ${dayName});   // popup as well
+  });
+});
