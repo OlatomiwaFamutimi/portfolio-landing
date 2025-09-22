@@ -1,47 +1,44 @@
-// Quick proof the file loads
-console.log("✅ script.js is loading...");
-
-document.addEventListener("DOMContentLoaded", () => {
-  console.log("✅ DOM fully loaded");
-
+document.addEventListener('DOMContentLoaded', function () {
   // Grab elements
-  const toggleBtn = document.getElementById("toggleBtn");
-  const welcomeBtn = document.getElementById("welcomeBtn");
-  const checkDayBtn = document.getElementById("checkDayBtn");
-  const generateBtn = document.getElementById("generateBtn");
-  const message = document.getElementById("message");
-  const numbersList = document.getElementById("numbersList");
+  var toggleBtn   = document.getElementById('toggleBtn');
+  var welcomeBtn  = document.getElementById('welcomeBtn');
+  var checkDayBtn = document.getElementById('checkDayBtn');
+  var generateBtn = document.getElementById('generateBtn');
+  var message     = document.getElementById('message');
+  var numbersList = document.getElementById('numbersList');
 
-  console.log({ toggleBtn, welcomeBtn, checkDayBtn, generateBtn, message, numbersList });
+  // Safety check: if anything is missing, stop
+  if (!toggleBtn || !welcomeBtn || !checkDayBtn || !generateBtn || !message || !numbersList) {
+    console.log('One or more elements not found.');
+    return;
+  }
 
-  // Dark mode
-  toggleBtn.addEventListener("click", () => {
-    console.log("🌙 Dark mode toggled");
-    document.body.classList.toggle("dark");
+  // Toggle dark mode
+  toggleBtn.addEventListener('click', function () {
+    document.body.classList.toggle('dark');
   });
 
-  // Welcome message
-  welcomeBtn.addEventListener("click", () => {
-    console.log("👋 Welcome clicked");
-    message.textContent = "Welcome to my portfolio!";
+  // Show welcome message
+  welcomeBtn.addEventListener('click', function () {
+    message.textContent = 'Welcome to my portfolio!';
   });
 
-  // Check day
-  checkDayBtn.addEventListener("click", () => {
-    console.log("📅 Check day clicked");
-    const days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
-    const today = new Date().getDay();
-    message.textContent = Today is ${days[today]};
+  // Check current day (switch-style)
+  checkDayBtn.addEventListener('click', function () {
+    var names   = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    var dayName = names[(new Date()).getDay()];
+    message.textContent = 'Today is ' + dayName;
+    alert('Today is ' + dayName);
   });
 
-  // Generate numbers
-  generateBtn.addEventListener("click", () => {
-    console.log("🔢 Generate numbers clicked");
-    numbersList.innerHTML = "";
-    for (let i = 1; i <= 10; i++) {
-      const li = document.createElement("li");
-      li.textContent = i;
+  // Generate numbers 1–10
+  generateBtn.addEventListener('click', function () {
+    numbersList.innerHTML = '';
+    for (var i = 1; i <= 10; i++) {
+      var li = document.createElement('li');
+      li.textContent = 'Number ' + i;
       numbersList.appendChild(li);
     }
   });
 });
+
