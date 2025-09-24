@@ -1,56 +1,51 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const $ = (id) => document.getElementById(id);
-  const on = (el, evt, fn) => el && el.addEventListener(evt, fn);
+    const $ = (id) => document.getElementById(id);
 
-  const toggleBtn    = $('toggleBtn');
-  const welcomeBtn   = $('welcomeBtn');
-  const checkDayBtn  = $('checkDayBtn');
-  const generateBtn  = $('generateBtn');
-  const daySwitchBtn = $('daySwitchBtn');
-  const message      = $('message');
-  const numbersList  = $('numbersList');
+    const toggleBtn     = $('toggleBtn');
+    const welcomeBtn    = $('welcomeBtn');
+    const checkDayBtn   = $('checkDayBtn');
+    const generateBtn   = $('generateBtn');
+    const daySwitchBtn  = $('daySwitchBtn');
+    const message       = $('message');
+    const numbersList   = $('numbersList');
 
-  // Toggle dark mode
-  on(toggleBtn, 'click', () => {
-    document.body.classList.toggle('dark');
-  });
+    // Toggle dark mode
+    toggleBtn.addEventListener('click', () => {
+        document.body.classList.toggle('dark');
+    });
 
-  // Welcome message
-  on(welcomeBtn, 'click', () => {
-    if (message) message.textContent = 'Welcome to my portfolio!';
-  });
+    // Welcome message
+    welcomeBtn.addEventListener('click', () => {
+        message.textContent = 'Welcome to my portfolio!';
+    });
 
-  // Check day (array)
-  on(checkDayBtn, 'click', () => {
-    const names = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-    const d = new Date().getDay();
-    const text = Today is ${names[d]};
-    if (message) message.textContent = text;
-    alert(text);
-  });
+    // Check Day
+    checkDayBtn.addEventListener('click', () => {
+        const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+        const today = new Date().getDay();
+        const text = Today is ${days[today]};
+        message.textContent = text;
+        alert(text);
+    });
 
-  // Generate numbers 1–10
-  on(generateBtn, 'click', () => {
-    if (!numbersList) return;
-    numbersList.innerHTML = '';
-    for (let i = 1; i <= 10; i++) {
-      const li = document.createElement('li');
-      li.textContent = Number ${i};
-      numbersList.appendChild(li);
-    }
-  });
+    // Generate random numbers
+    generateBtn.addEventListener('click', () => {
+        numbersList.innerHTML = '';
+        for (let i = 0; i < 5; i++) {
+            const num = Math.floor(Math.random() * 100) + 1; // random 1–100
+            const li = document.createElement('li');
+            li.textContent = num;
+            numbersList.appendChild(li);
+        }
+    });
 
-  // Check day (switch)
-  on(daySwitchBtn, 'click', () => {
-    const d = new Date().getDay();
-    let label;
-    switch (d) {
-      case 0: label = 'Sunday'; break;
-      case 6: label = 'Saturday'; break;
-      default: label = 'Weekday'; break;
-    }
-    if (message) message.textContent = Switch says: ${label};
-    alert(Switch says: ${label});
-  });
+    // Day Switch
+    daySwitchBtn.addEventListener('click', () => {
+        const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+        const randomDay = days[Math.floor(Math.random() * days.length)];
+        const text = Randomly picked day: ${randomDay};
+        message.textContent = text;
+        alert(text);
+    });
 });
 
