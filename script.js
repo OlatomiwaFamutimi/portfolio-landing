@@ -1,77 +1,56 @@
-document.addEventListener('DOMContentLoaded', function () {
-  // Grab elements
-  var toggleBtn   = document.getElementById('toggleBtn');
-  var welcomeBtn  = document.getElementById('welcomeBtn');
-  var checkDayBtn = document.getElementById('checkDayBtn');
-  var generateBtn = document.getElementById('generateBtn');
-  var message     = document.getElementById('message');
-  var numbersList = document.getElementById('numbersList');
+document.addEventListener('DOMContentLoaded', () => {
+  const $ = (id) => document.getElementById(id);
+  const on = (el, evt, fn) => el && el.addEventListener(evt, fn);
 
-  // Safety check: if anything is missing, stop
-  if (!toggleBtn || !welcomeBtn || !checkDayBtn || !generateBtn || !message || !numbersList) {
-    console.log('One or more elements not found.');
-    return;
-  }
+  const toggleBtn    = $('toggleBtn');
+  const welcomeBtn   = $('welcomeBtn');
+  const checkDayBtn  = $('checkDayBtn');
+  const generateBtn  = $('generateBtn');
+  const daySwitchBtn = $('daySwitchBtn');
+  const message      = $('message');
+  const numbersList  = $('numbersList');
 
   // Toggle dark mode
-  toggleBtn.addEventListener('click', function () {
+  on(toggleBtn, 'click', () => {
     document.body.classList.toggle('dark');
   });
 
-  // Show welcome message
-  welcomeBtn.addEventListener('click', function () {
-    message.textContent = 'Welcome to my portfolio!';
+  // Welcome message
+  on(welcomeBtn, 'click', () => {
+    if (message) message.textContent = 'Welcome to my portfolio!';
   });
 
-  // Check current day (switch-style)
-  checkDayBtn.addEventListener('click', function () {
-    var names   = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-    var dayName = names[(new Date()).getDay()];
-    message.textContent = 'Today is ' + dayName;
-    alert('Today is ' + dayName);
+  // Check day (array)
+  on(checkDayBtn, 'click', () => {
+    const names = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    const d = new Date().getDay();
+    const text = Today is ${names[d]};
+    if (message) message.textContent = text;
+    alert(text);
   });
 
   // Generate numbers 1–10
-  generateBtn.addEventListener('click', function () {
+  on(generateBtn, 'click', () => {
+    if (!numbersList) return;
     numbersList.innerHTML = '';
-    for (var i = 1; i <= 10; i++) {
-      var li = document.createElement('li');
-      li.textContent = 'Number ' + i;
+    for (let i = 1; i <= 10; i++) {
+      const li = document.createElement('li');
+      li.textContent = Number ${i};
       numbersList.appendChild(li);
     }
   });
-});
-// Switch statement demo
-daySwitchBtn.addEventListener("click", () => {
-  const dayNumber = prompt("Enter a number (1-7):");
-  let dayName;
 
-  switch (parseInt(dayNumber)) {
-    case 1:
-      dayName = "Sunday";
-      break;
-    case 2:
-      dayName = "Monday";
-      break;
-    case 3:
-      dayName = "Tuesday";
-      break;
-    case 4:
-      dayName = "Wednesday";
-      break;
-    case 5:
-      dayName = "Thursday";
-      break;
-    case 6:
-      dayName = "Friday";
-      break;
-    case 7:
-      dayName = "Saturday";
-      break;
-    default:
-      dayName = "Invalid number! Please enter 1–7.";
-  }
-
-  message.textContent = Result: ${dayName};
+  // Check day (switch)
+  on(daySwitchBtn, 'click', () => {
+    const d = new Date().getDay();
+    let label;
+    switch (d) {
+      case 0: label = 'Sunday'; break;
+      case 6: label = 'Saturday'; break;
+      default: label = 'Weekday'; break;
+    }
+    if (message) message.textContent = Switch says: ${label};
+    alert(Switch says: ${label});
+  });
 });
 
