@@ -51,4 +51,36 @@ on(generateBtn, 'click', () => {
     li.textContent = 'Number ' + i;
     numbersList.appendChild(li);
   }
+});// Reveal Box Animation
+const revealBtn = document.getElementById('revealBtn');
+const revealBox = document.getElementById('revealBox');
+revealBtn?.addEventListener('click', () => {
+  revealBox?.classList.toggle('show');
 });
+
+// Counter Animation
+const countBtn = document.getElementById('countBtn');
+const counterEl = document.getElementById('counter');
+
+function animateCount(el, to, duration = 1200) {
+  const start = performance.now();
+  const from = 0;
+  function tick(now) {
+    const p = Math.min((now - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - p, 3); // easeOutCubic
+    el.textContent = Math.floor(from + (to - from) * eased);
+    if (p < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+countBtn?.addEventListener('click', () => animateCount(counterEl, 100));
+
+// Scroll Reveal Animation
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) e.target.classList.add('visible');
+  });
+}, { threshold: 0.2 });
+
+document.querySelectorAll('.reveal-on-scroll')
+  .forEach(el => observer.observe(el));

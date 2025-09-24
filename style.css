@@ -46,4 +46,41 @@ body.dark button {
   border-color: #3a3a3a;
 }
 body.dark button:hover { background: #262626; }
-body.dark a { color: #9fd3ff; }
+body.dark a { color: #9fd3ff; }/* Smooth toggle box */
+.hidden-box {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 400ms ease, transform 400ms ease;
+  background: rgba(255,255,255,0.06);
+  padding: 12px 16px;
+  border-radius: 8px;
+  width: fit-content;
+  margin-top: 10px;
+}
+.hidden-box.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Counter */
+#counter {
+  font-size: 1.4rem;
+  margin: 10px 0;
+  font-weight: bold;
+}
+
+/* Scroll reveal */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 500ms ease, transform 500ms ease;
+}
+.reveal-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Dark mode smoother */
+body {
+  transition: background-color 250ms ease, color 250ms ease;
+}
