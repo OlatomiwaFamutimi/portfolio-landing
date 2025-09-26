@@ -103,4 +103,46 @@ on(calcBtn, 'click', () => {
 
   calcResult.textContent =
     a = ${a}, b = ${b} → sum: ${sum}, product: ${product}, a > b? ${isGreater}, check: ${check};
+});// ==== Operators Demo (animated) ====
+on(calcBtn, 'click', () => {
+  const a = 12, b = 5;
+
+  const box = document.getElementById('calcResult');
+  if (!box) return;
+
+  // Build result layout
+  box.innerHTML = `
+    <p><strong>a</strong> = ${a}, <strong>b</strong> = ${b}</p>
+    <p>Sum: <span id="sumVal">0</span></p>
+    <p>Product: <span id="prodVal">0</span></p>
+    <p>Difference: <span id="diffVal">0</span></p>
+    <p>Quotient: <span id="quotVal">0</span></p>
+  `;
+
+  // Animate each value
+  animateNumber(document.getElementById('sumVal'), a + b);
+  setTimeout(() => animateNumber(document.getElementById('prodVal'), a * b), 250);
+  setTimeout(() => animateNumber(document.getElementById('diffVal'), a - b), 500);
+  setTimeout(() => animateNumber(document.getElementById('quotVal'), (a / b), {decimals: 2}), 750);
 });
+
+// Utility: animate a number counting up
+function animateNumber(el, value, opts = {}) {
+  if (!el) return;
+  const decimals = opts.decimals || 0;
+  const duration = 900;         // ms
+  const stepTime = 20;          // ms
+  const steps = Math.ceil(duration / stepTime);
+  let n = 0;
+
+  const timer = setInterval(() => {
+    n++;
+    const progress = n / steps;
+    const current = value * progress;
+    el.textContent = (decimals ? current.toFixed(decimals) : Math.floor(current));
+    if (n >= steps) {
+      clearInterval(timer);
+      el.textContent = decimals ? Number(value).toFixed(decimals) : Math.round(value);
+    }
+  }, stepTime);
+}
