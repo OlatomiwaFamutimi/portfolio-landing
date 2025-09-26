@@ -83,4 +83,24 @@ const observer = new IntersectionObserver(entries => {
 }, { threshold: 0.2 });
 
 document.querySelectorAll('.reveal-on-scroll')
-  .forEach(el => observer.observe(el));
+  .forEach(el => observer.observe(el));// Operators Demo
+const calcBtn = document.getElementById('calcBtn');
+const calcResult = document.getElementById('calcResult');
+
+on(calcBtn, 'click', () => {
+  const a = 10;
+  const b = 3;
+
+  // Arithmetic
+  const sum = a + b;
+  const product = a * b;
+
+  // Comparison
+  const isGreater = a > b;
+
+  // Logical
+  const check = (a > 5 && b < 5);
+
+  calcResult.textContent =
+    a = ${a}, b = ${b} → sum: ${sum}, product: ${product}, a > b? ${isGreater}, check: ${check};
+});

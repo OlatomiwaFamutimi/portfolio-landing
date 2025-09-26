@@ -191,4 +191,8 @@ You sent
     typing 3.5s steps(30, end) forwards,
     blink-caret .75s step-end infinite;
   animation-delay: 2s; /* wait until bounce ends */
+}#calcResult {
+  margin-top: 8px;
+  font-weight: bold;
+  color: lightgreen;
 }
