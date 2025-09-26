@@ -242,4 +242,6 @@ You sent
 /* accent colors per line */
 .is-sum      { --accent: #22c55e; }   /* green */
 .is-product  { --accent: #3b82f6; }   /* blue */
-.is-sum .calc-value, .is-product .calc-value { color: var(--accent); }
+.is-sum .calc-value, .is-product .calc-value { color: var(--accent); 
+}.calc-result ul { margin: 6px 0 0; padding-left: 1rem; }
+.calc-result li { line-height: 1.6; }

@@ -101,4 +101,6 @@ document.addEventListener('DOMContentLoaded', () => {
       valueEl.textContent = String(Math.floor(current));
     }, stepTime);
   }
-});
+});<button id="compareBtn">Compare (==, ===, >, <=)</button>
+<button id="logicalBtn">Logical (&&, ||, !)</button>
+<button id="ternaryBtn">Ternary (?:)</button>
