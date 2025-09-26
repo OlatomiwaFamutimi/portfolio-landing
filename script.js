@@ -75,32 +75,57 @@ on(countBtn, 'click', () => {
     if (start >= end) { start = end; clearInterval(t); }
     counter.textContent = String(Math.floor(start));
   }, stepTime);
-});
-
-// Calculator (operators + animation)
-const animateNumber = (el, value, label) => {
-  let start = 0;
-  const duration = 1000, stepTime = 20, inc = value / (duration / stepTime);
-  const t = setInterval(() => {
-    start += inc;
-    if (start >= value) { start = value; clearInterval(t); }
-    el.textContent = label + ': ' + Math.floor(start);
-  }, stepTime);
-};
-
+});// --- Operator Demo: Simple Calculator with animated, styled output ---
 on(calcBtn, 'click', () => {
   const a = 12, b = 5;
   const sum = a + b;
   const product = a * b;
+
   if (!calcResult) return;
-  calcResult.innerHTML = '';                      // clear
-  const sumEl = document.createElement('div');
-  const prodEl = document.createElement('div');
-  calcResult.appendChild(sumEl);
-  calcResult.appendChild(prodEl);
-  animateNumber(sumEl,  sum,     'Sum');
-  setTimeout(() => animateNumber(prodEl, product, 'Product'), 1200);
+
+  // First line: Sum (clears box)
+  animateCalcLine('Sum', sum, 'is-sum', false);
+
+  // Second line: Product (appends after a short delay)
+  setTimeout(() => animateCalcLine('Product', product, 'is-product', true), 1000);
 });
+
+/**
+ * Animate one result line inside #calcResult
+ * @param {string} label - e.g. 'Sum'
+ * @param {number} value - target number
+ * @param {string} className - e.g. 'is-sum'
+ * @param {boolean} append - if false, clear box first
+ */
+function animateCalcLine(label, value, className, append) {
+  if (!append) calcResult.innerHTML = '';
+
+  const line = document.createElement('div');
+  line.className = calc-result ${className};
+  line.innerHTML = <span class="calc-label">${label}:</span> <span class="calc-value">0</span>;
+  calcResult.appendChild(line);
+
+  // trigger fade-in
+  requestAnimationFrame(() => line.classList.add('show'));
+
+  // count-up animation
+  const valueEl = line.querySelector('.calc-value');
+  let current = 0;
+  const duration = 900;          // ms
+  const stepTime = 20;           // ms
+  const steps = Math.ceil(duration / stepTime);
+  const inc = value / steps;
+
+  const timer = setInterval(() => {
+    current += inc;
+    if (current >= value) {
+      current = value;
+      clearInterval(timer);
+    }
+    valueEl.textContent = Math.floor(current);
+  }, stepTime);
+}
+
 
 // Scroll reveal (keeps working even if JS runs later)
 const ro = new IntersectionObserver((entries) => {

@@ -211,4 +211,35 @@ You sent
   text-align: center;
   border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0,0,0,.08);
+}/* --- Calculator result polish --- */
+.result-box {
+  position: relative;
+  margin: 12px auto;
+  max-width: 520px;
+  padding: 14px 16px;
+  border: 2px solid #acf59b;
+  border-radius: 10px;
+  background: rgba(124, 252, 0, 0.06);
+  box-shadow: 0 8px 22px rgba(0,0,0,0.08);
+  transition: background 250ms ease, border-color 250ms ease;
 }
+
+/* single result line */
+.calc-result {
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 350ms ease, transform 350ms ease;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 4px 0;
+}
+.calc-result.show { opacity: 1; transform: translateY(0); }
+
+.calc-label { color: #9aa3ad; margin-right: 8px; }
+.calc-value { font-weight: 700; }
+
+/* accent colors per line */
+.is-sum      { --accent: #22c55e; }   /* green */
+.is-product  { --accent: #3b82f6; }   /* blue */
+.is-sum .calc-value, .is-product .calc-value { color: var(--accent); }
