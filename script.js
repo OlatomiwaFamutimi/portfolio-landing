@@ -1,8 +1,8 @@
-// Safe utility
+// tiny helper
 const on = (el, evt, fn) => el && el.addEventListener(evt, fn);
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Get elements
+  // elements
   const toggleBtn    = document.getElementById('toggleBtn');
   const welcomeBtn   = document.getElementById('welcomeBtn');
   const checkDayBtn  = document.getElementById('checkDayBtn');
@@ -12,19 +12,19 @@ document.addEventListener('DOMContentLoaded', () => {
   const countBtn     = document.getElementById('countBtn');
   const calcBtn      = document.getElementById('calcBtn');
 
-  const message      = document.getElementById('message');
-  const numbersList  = document.getElementById('numbersList');
-  const revealBox    = document.getElementById('revealBox');
-  const counterEl    = document.getElementById('counter');
-  const calcResult   = document.getElementById('calcResult');
+  const message     = document.getElementById('message');
+  const numbersList = document.getElementById('numbersList');
+  const revealBox   = document.getElementById('revealBox');
+  const counterEl   = document.getElementById('counter');
+  const calcResult  = document.getElementById('calcResult');
 
-  // Dark mode
-  on(toggleBtn, 'click', () => document.body.classList.toggle('dark'));
+  // dark mode
+  on(toggleBtn, 'click', () => { document.body.classList.toggle('dark'); });
 
-  // Welcome message
+  // welcome
   on(welcomeBtn, 'click', () => { if (message) message.textContent = 'Welcome to my portfolio!'; });
 
-  // Check Day (if/else)
+  // check day (if/else)
   on(checkDayBtn, 'click', () => {
     const names = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
     const d = new Date().getDay();
@@ -32,21 +32,21 @@ document.addEventListener('DOMContentLoaded', () => {
     alert('Today is ' + names[d]);
   });
 
-  // Check Day (switch)
+  // check day (switch)
   on(daySwitchBtn, 'click', () => {
     const names = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
     const d = new Date().getDay();
     let text;
     switch (d) {
-      case 0: text = 'Sunday — weekend 🎉'; break;
-      case 6: text = 'Saturday — weekend 🎉'; break;
-      default: text = names[d] + ' — keep coding!'; break;
+      case 0: text = 'Sunday - weekend!'; break;
+      case 6: text = 'Saturday - weekend!'; break;
+      default: text = names[d] + ' - keep coding!'; break;
     }
     if (message) message.textContent = text;
     alert('Today is ' + names[d]);
   });
 
-  // Generate Numbers (toggle list)
+  // generate numbers toggle
   on(generateBtn, 'click', () => {
     if (!numbersList) return;
     if (numbersList.children.length > 0) { numbersList.innerHTML = ''; return; }
@@ -57,10 +57,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Reveal box
+  // reveal box
   on(revealBtn, 'click', () => { if (revealBox) revealBox.classList.toggle('show'); });
 
-  // Animate counter 0 → 100
+  // counter 0->100
   on(countBtn, 'click', () => {
     if (!counterEl) return;
     let n = 0;
@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 20);
   });
 
-  // --- Operator Demo: animated, styled output ---
+  // calculator demo (animated lines)
   on(calcBtn, 'click', () => {
     const a = 12, b = 5;
     const sum = a + b;
@@ -100,14 +100,5 @@ document.addEventListener('DOMContentLoaded', () => {
       if (current >= value) { current = value; clearInterval(timer); }
       valueEl.textContent = String(Math.floor(current));
     }, stepTime);
-  }
-
-  // Scroll reveal (optional, if you added the section)
-  const revealEls = document.querySelectorAll('.reveal-on-scroll');
-  if (revealEls.length) {
-    const io = new IntersectionObserver(entries => {
-      entries.forEach(e => e.target.classList.toggle('visible', e.isIntersecting));
-    }, { threshold: 0.15 });
-    revealEls.forEach(el => io.observe(el));
   }
 });
