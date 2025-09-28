@@ -349,4 +349,61 @@ body:not(.dark) #cookieDemo label {
 .dark #cookieDemo label,
 .dark #cookieDemo p {
   color: #eaeaea !important;  /* lighter text in dark mode background */
+}/* Cookie demo layout & colors */
+#cookieDemo h3 {
+  color: inherit;
+  margin-bottom: 10px;
+}
+
+.cookie-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 6px 0;
+  color: inherit;             /* follow light/dark text color */
+  font-weight: 500;
+  cursor: pointer;            /* whole row clickable */
+}
+
+/* make radio dots use theme color (modern browsers) */
+.cookie-option input[type="radio"] {
+  accent-color: #1e90ff;
+  margin: 0;
+}
+
+/* ensure readability in dark mode */
+body.dark #cookieDemo,
+body.dark #cookieDemo * {
+  color: #eaeaea;
+}
+
+#cookieResult {
+  color: inherit;
+}/* --- Cookie Demo visibility hard-fix --- */
+#cookieDemo,
+#cookieDemo * {
+  opacity: 1 !important;
+}
+
+/* Heading */
+#cookieDemo h3 {
+  color: #222 !important;
+}
+
+/* Radio labels */
+#cookieDemo .cookie-option span {
+  color: #222 !important;
+  font-weight: 600;
+}
+
+/* Helper text */
+#cookieResult {
+  color: #333 !important;
+}
+
+/* Dark mode overrides */
+body.dark-mode #cookieDemo h3,
+body.dark-mode #cookieDemo .cookie-option span,
+body.dark-mode #cookieResult {
+  color: #f1f1f1 !important;
 }
