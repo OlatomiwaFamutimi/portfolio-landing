@@ -406,4 +406,66 @@ body.dark-mode #cookieDemo h3,
 body.dark-mode #cookieDemo .cookie-option span,
 body.dark-mode #cookieResult {
   color: #f1f1f1 !important;
+}/* === Cookie demo fixes === */
+#cookieDemo {
+  max-width: 520px;
+  margin: 12px auto;
+  padding: 16px 20px;
+  border: 1px solid rgba(0,0,0,.12);
+  border-radius: 12px;
+  background: rgba(255,255,255,.65);
+}
+
+#cookieDemo h3 {
+  margin: 0 0 10px;
+  font-weight: 700;
+  color: #222;               /* visible in light mode */
+  opacity: 1 !important;     /* if any global style lowered it */
+}
+
+#cookieDemo input[type="text"] {
+  width: 100%;
+  padding: 10px 12px;
+}
+
+.cookie-option {
+  display: flex;             /* keep dot + text on one line */
+  align-items: center;
+  gap: 8px;
+  margin: 10px 0;
+  color: #333;
+}
+
+.cookie-option input[type="radio"] {
+  margin: 0;
+  transform: translateY(1px);
+  accent-color: #0ea5e9;     /* blue dot */
+}
+
+#cookieResult {
+  margin-top: 12px;
+  font-size: .95rem;
+  color: #333;
+}
+
+/* Dark mode overrides */
+body.dark #cookieDemo {
+  background: rgba(16,16,20,.75);
+  border-color: rgba(255,255,255,.18);
+}
+
+body.dark #cookieDemo h3,
+body.dark .cookie-option,
+body.dark #cookieResult {
+  color: #e8eef6;            /* readable text */
+}
+
+body.dark #cookieDemo input[type="text"] {
+  background: #0f172a;
+  color: #e2e8f0;
+  border: 1px solid #334155;
+}
+
+body.dark #cookieDemo input[type="text"]::placeholder {
+  color: #94a3b8;
 }
