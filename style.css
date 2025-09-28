@@ -525,4 +525,64 @@ body.dark {
   border: 1px dashed var(--card-border);
   border-radius: 6px;
   color: var(--muted);
+}/* --- Cookie Demo: fix dark-mode contrast + left-align radios --- */
+:root {
+  --text: #222;
+  --muted: #555;
+  --card-bg: #fff;
+  --card-border: #d7d7d7;
 }
+body.dark {
+  --text: #f3f5f7;
+  --muted: #c9d1d9;
+  --card-bg: #1f2937;      /* slate-800 */
+  --card-border: #334155;  /* slate-700 */
+}
+
+/* container */
+#cookieDemo {
+  max-width: 560px;
+  margin: 0 auto 1.25rem;
+  padding: 1rem 1.25rem;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  color: var(--text);
+}
+
+/* heading + input */
+#cookieDemo h3 { color: var(--text); margin: 0 0 .75rem; }
+#cookieDemo input[type="text"] { color: var(--text); }
+
+/* make each label visible in dark mode and sit on the LEFT in a column */
+#cookieDemo .cookie-option {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 8px 12px 0 0;     /* small space between the two labels */
+  color: var(--text) !important;
+  opacity: 1 !important;
+}
+
+/* ensure any nested span inherits the strong color */
+#cookieDemo .cookie-option span { color: var(--text) !important; }
+
+/* put both labels on their own line under the input (left side) */
+#cookieDemo .cookie-option { width: auto; }
+#cookieDemo .cookie-option:first-of-type { display: inline-flex; }
+#cookieDemo .cookie-option + .cookie-option { display: inline-flex; }
+
+/* radio dot color stays visible */
+#cookieDemo .cookie-option input[type="radio"] {
+  accent-color: #0ea5e9;
+}
+
+/* result box */
+#cookieResult {
+  margin-top: 12px;
+  padding: .6rem .75rem;
+  border: 1px dashed var(--card-border);
+  border-radius: 6px;
+  color: var(--muted);
+}
+
