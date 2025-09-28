@@ -210,4 +210,12 @@ window.onerror = function (msg) {
     try { throw new Error('Custom error from demo'); }
     catch (e) { show('error', e.message); }
   });
+})();// ===== Redirect Demo =====
+(function () {
+  on('redirectBtn', 'click', function () {
+    setText('redirectMsg', 'Redirecting to GitHub... 🐙');
+    setTimeout(function () {
+      window.location.href = 'https://github.com';
+    }, 1500);
+  });
 })();

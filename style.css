@@ -599,4 +599,16 @@ body.dark {
 /* Dark mode tweaks (if you use .dark on <body>) */
 body.dark .notice { background: rgba(255,255,255,.04); border-color: rgba(255,255,255,.25); }
 body.dark .notice.error { background: rgba(220,80,80,.12); border-color: #e58888; }
-body.dark .notice.ok { background: rgba(80,170,140,.12); border-color: #7ed0b2; }
+body.dark .notice.ok { background: rgba(80,170,140,.12); border-color: #7ed0b2; }/* Redirect Message */
+#redirectMsg {
+  margin: 20px auto;
+  padding: 12px 18px;
+  max-width: 400px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.1em;
+  color: #fff;
+  background: #2d333b; /* dark theme box */
+  border: 2px solid #58a6ff;
+  border-radius: 8px;
+}
