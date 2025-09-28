@@ -222,4 +222,60 @@ on(deleteCookieBtn, 'click', () => {
 });
 on(clearInputBtn, 'click', () => {
   if (cookieInput) cookieInput.value = '';
+});// ----- Error Handling Demo -----
+const errInput  = document.getElementById('errInput');
+const errorBox  = document.getElementById('errorBox');
+const parseBtn  = document.getElementById('parseBtn');
+const validateBtn = document.getElementById('validateBtn');
+const throwBtn  = document.getElementById('throwBtn');
+
+function showMsg(msg, type = '') {
+  if (!errorBox) return;
+  errorBox.className = 'notice' + (type ? ' ' + type : '');
+  errorBox.textContent = msg;
+}
+
+// 1) Try/Catch with a known failure (invalid JSON)
+on(parseBtn, 'click', () => {
+  try {
+    // Intentionally invalid JSON
+    JSON.parse('{ bad json }');
+    showMsg('Parsed successfully (this should not happen!)', 'ok');
+  } catch (err) {
+    showMsg(Caught error: ${err.message}, 'error');
+  } finally {
+    // Optional cleanup
+    // console.log('parseBtn finished');
+  }
+});
+
+// 2) Validate user input and throw our own error
+on(validateBtn, 'click', () => {
+  try {
+    const val = (errInput?.value ?? '').trim();
+    if (val === '') throw new Error('Please enter a value.');
+    const num = Number(val);
+    if (Number.isNaN(num)) throw new Error('Value must be a number.');
+    if (num < 0) throw new Error('Number must be non-negative.');
+    showMsg(Valid number ✅: ${num}, 'ok');
+  } catch (err) {
+    showMsg(err.message, 'error');
+  }
+});
+
+// 3) Throw a custom error to demonstrate handling
+class DemoError extends Error {
+  constructor(message) { super(message); this.name = 'DemoError'; }
+}
+on(throwBtn, 'click', () => {
+  try {
+    throw new DemoError('This is a custom DemoError we threw on purpose.');
+  } catch (err) {
+    showMsg(${err.name}: ${err.message}, 'error');
+  }
+});
+
+// Global fallback (optional): catch uncaught errors and show them
+window.addEventListener('error', (e) => {
+  showMsg(Uncaught: ${e.message}, 'error');
 });
