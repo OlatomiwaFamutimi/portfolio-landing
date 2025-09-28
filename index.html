@@ -64,15 +64,15 @@
   <input id="cookieInput" type="text" placeholder="Enter your name" />
   <br /><br />
   
-  <label>
-    <input type="radio" name="cookieType" value="session" checked>
-    Session Cookie
-  </label>
-  <label>
-    <input type="radio" name="cookieType" value="persistent">
-    Persistent Cookie (7 days)
-  </label>
-  <br /><br />
+ <label class="cookie-option">
+  <input type="radio" name="cookieType" value="session" checked>
+  <span>Session Cookie</span>
+</label>
+
+<label class="cookie-option">
+  <input type="radio" name="cookieType" value="persistent">
+  <span>Persistent Cookie (7 days)</span>
+</label>
 
   <button id="setCookieBtn">Set Cookie</button>
   <button id="getCookieBtn">Get Cookie</button>
