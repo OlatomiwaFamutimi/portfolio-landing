@@ -285,4 +285,29 @@ You sent
   background: #fff;
   min-height: 30px;
   font-family: monospace;
-}body { transition: background-color 250ms ease, color 250ms ease; }
+}body { transition: background-color 250ms ease, color 250ms ease; }/* --- Cookie demo visibility fixes --- */
+#cookieDemo label { 
+  color: inherit;          /* use section text color */
+  opacity: 1;              /* ensure fully visible */
+}
+
+body.dark #cookieDemo label {
+  color: #e8f0ff;          /* readable on dark bg */
+}
+
+body:not(.dark) #cookieDemo label {
+  color: #102027;          /* readable on light bg */
+}
+
+/* Make radio dots easy to see */
+#cookieDemo input[type="radio"] {
+  accent-color: #2aa9ff;   /* modern browsers */
+}
+
+/* Optional: tidy the radio row */
+#cookieDemo .cookie-options {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin: 10px 0;
+}
