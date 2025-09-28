@@ -1,6 +1,6 @@
 'use strict';
 
-// tiny helpers (safe, no fancy syntax)
+// ===== Helpers =====
 function $(id) { return document.getElementById(id); }
 function on(id, evt, fn) {
   var el = $(id);
@@ -9,160 +9,169 @@ function on(id, evt, fn) {
 }
 function setText(id, txt) { var el = $(id); if (el) el.textContent = txt; }
 function setHTML(id, html) { var el = $(id); if (el) el.innerHTML = html; }
-// Catch any uncaught runtime error so others still run
-window.addEventListener('error', (evt) => {
-  console.error('Uncaught error:', evt.message);
-  const box = $('message');
-  if (box) box.textContent = JS error: ${evt.message};
-});
+
+// Catch uncaught runtime errors
+window.onerror = function (msg) {
+  var box = $('message');
+  if (box) box.textContent = 'JS error: ' + msg;
+  return false;
+};
 
 // ===== Dark mode =====
 (function () {
-  if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark');
-  safeAdd('toggleBtn', 'click', () => {
+  if (localStorage.getItem('theme') === 'dark') {
+    document.body.classList.add('dark');
+  }
+  on('toggleBtn', 'click', function () {
     document.body.classList.toggle('dark');
-    localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+    localStorage.setItem('theme',
+      document.body.classList.contains('dark') ? 'dark' : 'light'
+    );
   });
 })();
 
 // ===== Welcome message =====
 (function () {
-  safeAdd('welcomeBtn', 'click', () => {
+  on('welcomeBtn', 'click', function () {
     setText('message', 'Welcome to my portfolio! 👋');
   });
 })();
 
 // ===== Check day (if/else) =====
 (function () {
-  safeAdd('checkDayBtn', 'click', () => {
-    const day = new Date().toLocaleDateString(undefined, { weekday: 'long' });
-    setText('message', Today is ${day}.);
+  on('checkDayBtn', 'click', function () {
+    var day = new Date().toLocaleDateString(undefined, { weekday: 'long' });
+    setText('message', 'Today is ' + day + '.');
   });
 })();
 
 // ===== Generate numbers =====
 (function () {
-  safeAdd('generateBtn', 'click', () => {
-    const nums = Array.from({ length: 5 }, () => Math.floor(Math.random() * 90) + 10);
-    appendHtml('message', Numbers: ${nums.join(', ')});
+  on('generateBtn', 'click', function () {
+    var nums = [];
+    for (var i = 0; i < 5; i++) {
+      nums.push(Math.floor(Math.random() * 90) + 10);
+    }
+    setHTML('message', 'Numbers: ' + nums.join(', '));
   });
 })();
 
 // ===== Check day (switch) =====
 (function () {
-  safeAdd('daySwitchBtn', 'click', () => {
-    const d = new Date().getDay();
-    const map = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-    setText('message', Switch says: ${map[d]});
+  on('daySwitchBtn', 'click', function () {
+    var d = new Date().getDay();
+    var map = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    setText('message', 'Switch says: ' + map[d]);
   });
 })();
 
-// ===== Calculator demo =====
+// ===== Simple calculator =====
 (function () {
-  const calcResult = $('calcResult');
+  var calcResult = $('calcResult');
 
   function animateCalcLine(label, value, className, append) {
     if (!calcResult) return;
     if (!append) calcResult.innerHTML = '';
 
-    const line = document.createElement('div');
-    line.className = calc-result ${className};
-    line.innerHTML = <span class="calc-label">${label}:</span> <span class="calc-value">0</span>;
+    var line = document.createElement('div');
+    line.className = 'calc-result ' + className;
+    line.innerHTML = '<span class="calc-label">' + label + ':</span> <span class="calc-value">0</span>';
     calcResult.appendChild(line);
-    requestAnimationFrame(() => line.classList.add('show'));
 
-    const valueEl = line.querySelector('.calc-value');
-    let current = 0, duration = 900, step = 20, inc = value / (duration / step);
-    const timer = setInterval(() => {
+    var valueEl = line.querySelector('.calc-value');
+    var current = 0, duration = 900, step = 20, inc = value / (duration / step);
+    var timer = setInterval(function () {
       current += inc;
       if (current >= value) { current = value; clearInterval(timer); }
       valueEl.textContent = Math.floor(current);
     }, step);
   }
 
-  safeAdd('calcBtn', 'click', () => {
-    const a = 12, b = 5;
+  on('calcBtn', 'click', function () {
+    var a = 12, b = 5;
     animateCalcLine('Sum', a + b, 'is-sum', false);
-    setTimeout(() => animateCalcLine('Product', a * b, 'is-product', true), 800);
+    setTimeout(function () { animateCalcLine('Product', a * b, 'is-product', true); }, 800);
   });
 })();
 
 // ===== Operators demo =====
 (function () {
-  const calcResult = $('calcResult');
+  var calcResult = $('calcResult');
   function renderList(title, lines) {
     if (!calcResult) return;
     calcResult.innerHTML =
-      <div class="calc-result show"><strong>${title}</strong><ul>${lines.map(li => `<li>${li}</li>).join('')}</ul></div>`;
+      '<div class="calc-result show"><strong>' + title + '</strong><ul>' +
+      lines.map(function (li) { return '<li>' + li + '</li>'; }).join('') +
+      '</ul></div>';
   }
 
-  safeAdd('compareBtn', 'click', () => {
-    const a = 12, b = 5;
+  on('compareBtn', 'click', function () {
+    var a = 12, b = 5;
     renderList('Comparison Results', [
-      ${a} ==  ${b}  → ${a == b},
-      ${a} === ${b} → ${a === b},
-      ${a} > ${b}   → ${a > b},
-      ${a} <= ${b}  → ${a <= b}
+      a + ' ==  ' + b + '  → ' + (a == b),
+      a + ' === ' + b + ' → ' + (a === b),
+      a + ' > ' + b + '   → ' + (a > b),
+      a + ' <= ' + b + '  → ' + (a <= b)
     ]);
   });
 
-  safeAdd('logicalBtn', 'click', () => {
-    const hasID = true, hasTicket = false;
+  on('logicalBtn', 'click', function () {
+    var hasID = true, hasTicket = false;
     renderList('Logical Results', [
-      hasID && hasTicket → ${hasID && hasTicket},
-      hasID || hasTicket → ${hasID || hasTicket},
-      !hasTicket         → ${!hasTicket}
+      'hasID && hasTicket → ' + (hasID && hasTicket),
+      'hasID || hasTicket → ' + (hasID || hasTicket),
+      '!hasTicket         → ' + (!hasTicket)
     ]);
   });
 
-  safeAdd('ternaryBtn', 'click', () => {
-    const score = 68;
-    const verdict = score >= 70 ? 'Pass ✅' : 'Fail ❌';
+  on('ternaryBtn', 'click', function () {
+    var score = 68;
+    var verdict = score >= 70 ? 'Pass ✅' : 'Fail ❌';
     renderList('Ternary Result', [
-      score = ${score},
-      score >= 70 ? 'Pass' : 'Fail' → ${verdict}
+      'score = ' + score,
+      "score >= 70 ? 'Pass' : 'Fail' → " + verdict
     ]);
   });
 })();
 
 // ===== Cookie demo =====
 (function () {
-  const result = $('cookieResult');
+  var result = $('cookieResult');
   function getSelectedCookieType() {
-    const el = document.querySelector('input[name="cookieType"]:checked');
+    var el = document.querySelector('input[name="cookieType"]:checked');
     return el ? el.value : 'session';
   }
 
   function setCookie(name, value, days) {
-    const opts = [];
+    var opts = [];
     if (days) {
-      const d = new Date(); d.setTime(d.getTime() + days * 864e5);
+      var d = new Date(); d.setTime(d.getTime() + days * 864e5);
       opts.push('expires=' + d.toUTCString());
     }
     opts.push('path=/');
-    document.cookie = ${encodeURIComponent(name)}=${encodeURIComponent(value)}; ${opts.join('; ')};
+    document.cookie = encodeURIComponent(name) + '=' + encodeURIComponent(value) + '; ' + opts.join('; ');
   }
   function getCookie(name) {
-    const m = document.cookie.match(new RegExp('(?:^|; )' + encodeURIComponent(name) + '=([^;]*)'));
+    var m = document.cookie.match(new RegExp('(?:^|; )' + encodeURIComponent(name) + '=([^;]*)'));
     return m ? decodeURIComponent(m[1]) : null;
   }
   function deleteCookie(name) { document.cookie = encodeURIComponent(name) + '=; Max-Age=0; path=/'; }
 
-  safeAdd('setCookieBtn', 'click', () => {
-    const name = ($('cookieInput')?.value || '').trim();
+  on('setCookieBtn', 'click', function () {
+    var name = ($('cookieInput') && $('cookieInput').value || '').trim();
     if (!name) { if (result) result.textContent = 'Please enter a name.'; return; }
-    const type = getSelectedCookieType();
+    var type = getSelectedCookieType();
     if (type === 'persistent') setCookie('username', name, 7);
     else setCookie('username', name); // session
-    if (result) result.textContent = Saved ${type} cookie for "${name}".;
+    if (result) result.textContent = 'Saved ' + type + ' cookie for "' + name + '".';
   });
 
-  safeAdd('getCookieBtn', 'click', () => {
-    const v = getCookie('username');
-    if (result) result.textContent = v ? Hello, ${v}! : 'No cookie found.';
+  on('getCookieBtn', 'click', function () {
+    var v = getCookie('username');
+    if (result) result.textContent = v ? 'Hello, ' + v + '!' : 'No cookie found.';
   });
 
-  safeAdd('deleteCookieBtn', 'click', () => {
+  on('deleteCookieBtn', 'click', function () {
     deleteCookie('username');
     if (result) result.textContent = 'Cookie deleted.';
   });
@@ -170,34 +179,34 @@ window.addEventListener('error', (evt) => {
 
 // ===== Error-handling demo =====
 (function () {
-  const result = $('errorBox');
+  var result = $('errorBox');
   function show(type, msg) {
     if (!result) return;
     result.className = 'notice ' + type;
     result.textContent = msg;
   }
 
-  safeAdd('parseBtn', 'click', () => {
+  on('parseBtn', 'click', function () {
     try {
-      const raw = $('errInput')?.value ?? '';
-      JSON.parse(raw); // will fail if not valid JSON
+      var raw = ($('errInput') && $('errInput').value) || '';
+      JSON.parse(raw);
       show('ok', 'Valid JSON ✅');
     } catch (e) {
       show('error', 'JSON error: ' + e.message);
     }
   });
 
-  safeAdd('validateBtn', 'click', () => {
+  on('validateBtn', 'click', function () {
     try {
-      const n = Number(($('errInput')?.value ?? '').trim());
+      var n = Number((($('errInput') && $('errInput').value) || '').trim());
       if (!Number.isFinite(n)) throw new Error('Please enter a valid number');
-      show('ok', Thanks, number is ${n});
+      show('ok', 'Thanks, number is ' + n);
     } catch (e) {
       show('error', e.message);
     }
   });
 
-  safeAdd('throwBtn', 'click', () => {
+  on('throwBtn', 'click', function () {
     try { throw new Error('Custom error from demo'); }
     catch (e) { show('error', e.message); }
   });
