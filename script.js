@@ -72,38 +72,58 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 20);
   });
 
-  // calculator demo (animated lines)
-  on(calcBtn, 'click', () => {
-    const a = 12, b = 5;
-    const sum = a + b;
-    const product = a * b;
-    if (!calcResult) return;
-    animateCalcLine('Sum', sum, 'is-sum', false);
-    setTimeout(() => animateCalcLine('Product', product, 'is-product', true), 1000);
-  });
+  // --- Operator Demo: Simple Calculator with animated, styled output ---
+on(calcBtn, 'click', () => {
+  const a = 12, b = 5;
+  const sum = a + b;
+  const product = a * b;
 
-  function animateCalcLine(label, value, className, append) {
-    if (!calcResult) return;
-    if (!append) calcResult.innerHTML = '';
-    const line = document.createElement('div');
-    line.className = 'calc-result ' + className;
-    line.innerHTML = '<span class="calc-label">' + label + ':</span> <span class="calc-value">0</span>';
-    calcResult.appendChild(line);
-    requestAnimationFrame(() => line.classList.add('show'));
-    const valueEl = line.querySelector('.calc-value');
-    let current = 0;
-    const duration = 900, stepTime = 20;
-    const steps = Math.ceil(duration / stepTime);
-    const inc = value / steps;
-    const timer = setInterval(() => {
-      current += inc;
-      if (current >= value) { current = value; clearInterval(timer); }
-      valueEl.textContent = String(Math.floor(current));
-    }, stepTime);
-  }
-});<button id="compareBtn">Compare (==, ===, >, <=)</button>
-<button id="logicalBtn">Logical (&&, ||, !)</button>
-<button id="ternaryBtn">Ternary (?:)</button>// Small helper to show results in calcResult
+  if (!calcResult) return;
+
+  // First line: Sum (clears box)
+  animateCalcLine('Sum', sum, 'is-sum', false);
+
+  // Second line: Product (appends after a short delay)
+  setTimeout(() => animateCalcLine('Product', product, 'is-product', true), 1000);
+});
+
+/**
+ * Animate one result line inside #calcResult
+ */
+function animateCalcLine(label, value, className, append) {
+  if (!calcResult) return;
+  if (!append) calcResult.innerHTML = '';
+
+  const line = document.createElement('div');
+  line.className = calc-result ${className};
+  line.innerHTML = <span class="calc-label">${label}:</span> <span class="calc-value">0</span>;
+  calcResult.appendChild(line);
+
+  requestAnimationFrame(() => line.classList.add('show'));
+
+  const valueEl = line.querySelector('.calc-value');
+  let current = 0;
+  const duration = 900;
+  const stepTime = 20;
+  const steps = Math.ceil(duration / stepTime);
+  const inc = value / steps;
+
+  const timer = setInterval(() => {
+    current += inc;
+    if (current >= value) {
+      current = value;
+      clearInterval(timer);
+    }
+    valueEl.textContent = String(Math.floor(current));
+  }, stepTime);
+}
+
+// ------- Operators demo buttons -------
+const compareBtn = document.getElementById('compareBtn');
+const logicalBtn = document.getElementById('logicalBtn');
+const ternaryBtn = document.getElementById('ternaryBtn');
+
+// Show a titled list inside the green result box
 function renderList(title, lines) {
   if (!calcResult) return;
   calcResult.innerHTML = `
@@ -133,7 +153,9 @@ on(logicalBtn, 'click', () => {
     hasID || hasTicket → ${hasID || hasTicket},
     !hasTicket         → ${!hasTicket}
   ]);
-});// Ternary demo
+});
+
+// Ternary demo
 on(ternaryBtn, 'click', () => {
   const score = 68;
   const verdict = (score >= 70) ? 'Pass ✅' : 'Fail ❌';
