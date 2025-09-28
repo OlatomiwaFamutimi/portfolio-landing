@@ -181,46 +181,83 @@ on(ternaryBtn, 'click', () => {
   ]);
 });
 
-// ---------- cookie demo (simple) ----------
+// Cookie helpers
+function setCookie(name, value, days) {
+  let cookie = ${name}=${value}; path=/;
+  if (days) {
+    const maxAge = days * 24 * 60 * 60; // convert days → seconds
+    cookie += ; max-age=${maxAge};
+  }
+  document.cookie = cookie;
+}
 
-// set cookie (expires in 7 days)
+function getCookie(name) {
+  const cookies = document.cookie.split('; ');
+  for (let c of cookies) {
+    const [key, val] = c.split('=');
+    if (key === name) return val;
+  }
+  return null;
+}
+
+function deleteCookie(name) {
+  document.cookie = ${name}=; max-age=0; path=/;
+}
+
+// Elements
+const cookieInput = document.getElementById('cookieInput');
+const cookieResult = document.getElementById('cookieResult');
+const setCookieBtn = document.getElementById('setCookieBtn');
+const getCookieBtn = document.getElementById('getCookieBtn');
+const deleteCookieBtn = document.getElementById('deleteCookieBtn');
+
+// === Persist Dark Mode with a cookie ===
+const THEME_COOKIE = 'theme';
+
+// Apply saved theme on load
+(function applyThemeFromCookie() {
+  const saved = getCookie(THEME_COOKIE); // uses your existing helper
+  if (saved === 'dark') {
+    document.body.classList.add('dark');
+  }
+})();
+
+// When user toggles, save choice for 30 days
+on(toggleBtn, 'click', () => {
+  document.body.classList.toggle('dark');
+  const mode = document.body.classList.contains('dark') ? 'dark' : 'light';
+  setCookie(THEME_COOKIE, mode, 30);     // uses your existing helper
+});
+
+// Set cookie → choose session or persistent
 on(setCookieBtn, 'click', () => {
-  if (!cookieInput || !cookieResult) return;
-  const name = cookieInput.value.trim();
-  if (!name) {
-    cookieResult.textContent = 'Please enter a name first.';
+  const value = cookieInput.value.trim();
+  if (!value) {
+    cookieResult.textContent = "⚠️ Please enter a value!";
     return;
   }
-  const days = 7;
-  const d = new Date();
-  d.setTime(d.getTime() + (days * 24*60*60*1000));
-  document.cookie = 'username=' + encodeURIComponent(name) +
-                    '; expires=' + d.toUTCString() +
-                    '; path=/; SameSite=Lax';
-  cookieResult.textContent = 'Saved cookie: username=' + name;
-});
 
-// get cookie
-on(getCookieBtn, 'click', () => {
-  if (!cookieResult) return;
-  const m = document.cookie.match(/(?:^|;\s*)username=([^;]+)/);
-  if (m) {
-    cookieResult.textContent = 'Cookie value: ' + decodeURIComponent(m[1]);
+  const type = document.querySelector('input[name="cookieType"]:checked').value;
+
+  if (type === "session") {
+    setCookie("username", value); // session cookie
+    cookieResult.textContent = ✅ Session cookie set (username=${value});
   } else {
-    cookieResult.textContent = 'No "username" cookie found.';
+    setCookie("username", value, 7); // persistent for 7 days
+    cookieResult.textContent = ✅ Persistent cookie set (username=${value}, 7 days);
   }
 });
 
-// delete cookie
-on(deleteCookieBtn, 'click', () => {
-  if (!cookieResult) return;
-  document.cookie = 'username=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; SameSite=Lax';
-  cookieResult.textContent = 'Cookie deleted.';
+// Get cookie
+on(getCookieBtn, 'click', () => {
+  const value = getCookie("username");
+  cookieResult.textContent = value
+    ? 🍪 Found cookie: username=${value}
+    : "❌ No cookie found.";
 });
 
-// clear input
-on(clearInputBtn, 'click', () => {
-  if (!cookieInput || !cookieResult) return;
-  cookieInput.value = '';
-  cookieResult.textContent = 'Input cleared ✨';
+// Delete cookie
+on(deleteCookieBtn, 'click', () => {
+  deleteCookie("username");
+  cookieResult.textContent = "🗑️ Cookie deleted.";
 });

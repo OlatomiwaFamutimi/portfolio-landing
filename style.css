@@ -285,4 +285,4 @@ You sent
   background: #fff;
   min-height: 30px;
   font-family: monospace;
-}
+}body { transition: background-color 250ms ease, color 250ms ease; }
