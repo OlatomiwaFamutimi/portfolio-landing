@@ -1,19 +1,4 @@
-// === DIAGNOSTICS (temporary) ===
-console.clear();
-console.log("JS loaded ✅", new Date().toISOString());
-document.body.setAttribute("data-js", "on");
-
-const REQUIRED_IDS = [
-  "toggleBtn","welcomeBtn","checkDayBtn","generateBtn","daySwitchBtn",
-  "calcBtn","calcResult","compareBtn","logicalBtn","ternaryBtn",
-  "cookieInput","setCookieBtn","getCookieBtn","deleteCookieBtn","cookieResult",
-  "errInput","parseBtn","validateBtn","throwBtn","errorBox","message"
-];
-const missing = REQUIRED_IDS.filter(id => !document.getElementById(id));
-if (missing.length) console.error("Missing elements:", missing);
-
-// catch any runtime errors so they don’t kill other listeners
-window.addEventListener("error", (e) => console.error("Runtime error:", e.message));// ===== Safety + helpers =====
+// ===== Safety + helpers =====
 'use strict';
 
 function $(id) { return document.getElementById(id); }
@@ -28,10 +13,10 @@ function setText(id, text) { const el = $(id); if (el) el.textContent = text; }
 function appendHtml(id, html) { const el = $(id); if (el) el.innerHTML = html; }
 
 // Catch any uncaught runtime error so others still run
-window.addEventListener('error', (e) => {
-  console.error('Uncaught error:', e.message);
+window.addEventListener('error', (evt) => {
+  console.error('Uncaught error:', evt.message);
   const box = $('message');
-  if (box) box.textContent = JS error: ${e.message};
+  if (box) box.textContent = JS error: ${evt.message};
 });
 
 // ===== Dark mode =====
@@ -58,7 +43,7 @@ window.addEventListener('error', (e) => {
   });
 })();
 
-// ===== Generate numbers (simple demo) =====
+// ===== Generate numbers =====
 (function () {
   safeAdd('generateBtn', 'click', () => {
     const nums = Array.from({ length: 5 }, () => Math.floor(Math.random() * 90) + 10);
@@ -75,7 +60,7 @@ window.addEventListener('error', (e) => {
   });
 })();
 
-// ===== Simple calculator with animated lines =====
+// ===== Calculator demo =====
 (function () {
   const calcResult = $('calcResult');
 
@@ -105,7 +90,7 @@ window.addEventListener('error', (e) => {
   });
 })();
 
-// ===== Operators: comparison / logical / ternary =====
+// ===== Operators demo =====
 (function () {
   const calcResult = $('calcResult');
   function renderList(title, lines) {
@@ -143,7 +128,7 @@ window.addEventListener('error', (e) => {
   });
 })();
 
-// ===== Cookie demo (session vs persistent) =====
+// ===== Cookie demo =====
 (function () {
   const result = $('cookieResult');
   function getSelectedCookieType() {
