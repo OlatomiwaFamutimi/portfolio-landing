@@ -1,213 +1,225 @@
-// ===== Helpers =====
-function on(el, evt, fn) { if (el) el.addEventListener(evt, fn); }
-function $(id) { return document.getElementById(id); }
+'use strict';
 
-// ===== Elements =====
-const toggleBtn      = $('toggleBtn');
-const welcomeBtn     = $('welcomeBtn');
-const checkDayBtn    = $('checkDayBtn');
-const generateBtn    = $('generateBtn');
-const daySwitchBtn   = $('daySwitchBtn');
-const message        = $('message');
-const numbersList    = $('numbersList');
+// Small helper
+const on = (el, evt, fn) => el && el.addEventListener(evt, fn);
 
-const revealBtn      = $('revealBtn');
-const revealBox      = $('revealBox');
-const countBtn       = $('countBtn');
-const counterEl      = $('counter');
+// Grab all elements safely
+const byId = id => document.getElementById(id);
+const toggleBtn       = byId('toggleBtn');
+const welcomeBtn      = byId('welcomeBtn');
+const checkDayBtn     = byId('checkDayBtn');
+const generateBtn     = byId('generateBtn');
+const daySwitchBtn    = byId('daySwitchBtn');
 
-const calcBtn        = $('calcBtn');
-const calcResult     = $('calcResult');
-const compareBtn     = $('compareBtn');
-const logicalBtn     = $('logicalBtn');
-const ternaryBtn     = $('ternaryBtn');
+const revealBtn       = byId('revealBtn');
+const revealBox       = byId('revealBox');
+const countBtn        = byId('countBtn');
+const counter         = byId('counter');
 
-// Cookie demo elements
-const cookieInput       = $('cookieInput');
-const setCookieBtn      = $('setCookieBtn');
-const getCookieBtn      = $('getCookieBtn');
-const deleteCookieBtn   = $('deleteCookieBtn');
-const cookieResult      = $('cookieResult');
-const cookieTypeSession = $('cookieTypeSession');
-const cookieTypePersist = $('cookieTypePersist');
+const calcBtn         = byId('calcBtn');
+const calcResult      = byId('calcResult');
+const compareBtn      = byId('compareBtn');
+const logicalBtn      = byId('logicalBtn');
+const ternaryBtn      = byId('ternaryBtn');
 
-// ===== Tiny cookie helpers (ASCII only) =====
-function setCookie(name, value, days) {
-  let expires = "";
-  if (days && days > 0) {
-    const d = new Date();
-    d.setTime(d.getTime() + (days*24*60*60*1000));
-    expires = "; expires=" + d.toUTCString();
-  }
-  document.cookie = name + "=" + encodeURIComponent(value) + expires + "; path=/";
-}
-function getCookie(name) {
-  const nameEQ = name + "=";
-  const ca = document.cookie.split(';');
-  for (let i = 0; i < ca.length; i++) {
-    let c = ca[i].trim();
-    if (c.indexOf(nameEQ) === 0) return decodeURIComponent(c.substring(nameEQ.length));
-  }
-  return null;
-}
-function deleteCookie(name) { setCookie(name, "", -1); }
+const cookieInput     = byId('cookieInput');
+const setCookieBtn    = byId('setCookieBtn');
+const getCookieBtn    = byId('getCookieBtn');
+const deleteCookieBtn = byId('deleteCookieBtn');
+const clearInputBtn   = byId('clearInputBtn'); // ok if missing
+const cookieResult    = byId('cookieResult');
 
-// ===== Dark mode + remember with cookie =====
-function applyThemeFromCookie() {
-  const theme = getCookie("theme");
-  if (theme === "dark") document.body.classList.add("dark");
-}
-applyThemeFromCookie();
+const message         = byId('message');
+const numbersList     = byId('numbersList');
 
-on(toggleBtn, 'click', function () {
+// ============ Core demos ============
+
+// Dark mode
+on(toggleBtn, 'click', () => {
   document.body.classList.toggle('dark');
-  if (document.body.classList.contains('dark')) {
-    setCookie("theme", "dark", 7);
-  } else {
-    deleteCookie("theme");
-  }
 });
 
-// ===== Welcome =====
-on(welcomeBtn, 'click', function () {
-  if (message) message.textContent = "Welcome to my portfolio!";
+// Welcome
+on(welcomeBtn, 'click', () => {
+  if (message) message.textContent = 'Welcome to my portfolio!';
 });
 
-// ===== Check day (if/else) =====
-on(checkDayBtn, 'click', function () {
+// Check day (if/else)
+on(checkDayBtn, 'click', () => {
   const names = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
   const d = new Date().getDay();
-  if (message) message.textContent = "Today is " + names[d] + ".";
-  alert("Today is " + names[d]);
+  if (message) message.textContent = 'Today is ' + names[d] + '.';
+  alert('Today is ' + names[d]);
 });
 
-// ===== Check day (switch) =====
-on(daySwitchBtn, 'click', function () {
+// Check day (switch)
+on(daySwitchBtn, 'click', () => {
   const names = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
   const d = new Date().getDay();
   let text;
   switch (d) {
-    case 0: text = "Sunday — weekend!"; break;
-    case 6: text = "Saturday — weekend!"; break;
-    default: text = names[d] + " — keep coding!"; break;
+    case 0: text = 'Sunday — weekend 🎉'; break;
+    case 6: text = 'Saturday — weekend 🎉'; break;
+    default: text = names[d] + ' — keep coding!'; break;
   }
   if (message) message.textContent = text;
+  alert('Today is ' + names[d]);
 });
 
-// ===== Numbers (toggle) =====
-on(generateBtn, 'click', function () {
+// Generate numbers (toggle)
+on(generateBtn, 'click', () => {
   if (!numbersList) return;
-  if (numbersList.children.length > 0) { numbersList.innerHTML = ""; return; }
+  if (numbersList.children.length > 0) { numbersList.innerHTML = ''; return; }
   for (let i = 1; i <= 10; i++) {
     const li = document.createElement('li');
-    li.textContent = "Number " + i;
+    li.textContent = 'Number ' + i;
     numbersList.appendChild(li);
   }
 });
 
-// ===== Reveal box =====
-on(revealBtn, 'click', function () {
-  if (!revealBox) return;
-  revealBox.classList.toggle('show');
+// Reveal box (CSS handles .show)
+on(revealBtn, 'click', () => {
+  if (revealBox) revealBox.classList.toggle('show');
 });
 
-// ===== Counter animation =====
-on(countBtn, 'click', function () {
-  if (!counterEl) return;
-  let start = 0;
-  const target = 100;
-  const duration = 1000;
+// Counter animation
+on(countBtn, 'click', () => animateNumber(counter, 0, 100, 1000));
+function animateNumber(el, start, end, duration) {
+  if (!el) return;
+  let current = start;
   const stepTime = 20;
-  const inc = target / (duration / stepTime);
-  const t = setInterval(function () {
-    start += inc;
-    if (start >= target) { start = target; clearInterval(t); }
-    counterEl.textContent = String(Math.floor(start));
+  const steps = Math.ceil(duration / stepTime);
+  const inc = (end - start) / steps;
+  const t = setInterval(() => {
+    current += inc;
+    if ((inc > 0 && current >= end) || (inc < 0 && current <= end)) {
+      current = end;
+      clearInterval(t);
+    }
+    el.textContent = String(Math.floor(current));
   }, stepTime);
-});
-
-// ===== Calculator demo (operators) =====
-function renderLines(title, lines) {
-  if (!calcResult) return;
-  let html = "";
-  html += '<div class="calc-result show">';
-  html += '<strong>' + title + '</strong>';
-  html += '<ul>';
-  for (let i = 0; i < lines.length; i++) {
-    html += '<li>' + lines[i] + '</li>';
-  }
-  html += '</ul></div>';
-  calcResult.innerHTML = html;
 }
 
-on(calcBtn, 'click', function () {
+// ============ Calculator + operators ============
+
+// Helper to show a titled list in the green box
+function renderList(title, lines) {
+  if (!calcResult) return;
+  calcResult.innerHTML =
+    '<div class="calc-result show">' +
+    '<strong>' + title + '</strong>' +
+    '<ul>' + lines.map(li => '<li>' + li + '</li>').join('') + '</ul>' +
+    '</div>';
+}
+
+// Animate one “Sum: 17” style line
+function animateCalcLine(label, value, className, append) {
+  if (!calcResult) return;
+  if (!append) calcResult.innerHTML = '';
+
+  const line = document.createElement('div');
+  line.className = 'calc-result ' + className;
+  line.innerHTML = '<span class="calc-label">' + label + ':</span> ' +
+                   '<span class="calc-value">0</span>';
+  calcResult.appendChild(line);
+
+  // fade in
+  requestAnimationFrame(() => line.classList.add('show'));
+
+  // count up
+  const valueEl = line.querySelector('.calc-value');
+  let current = 0;
+  const duration = 900, stepTime = 20;
+  const steps = Math.ceil(duration / stepTime);
+  const inc = value / steps;
+
+  const timer = setInterval(() => {
+    current += inc;
+    if (current >= value) { current = value; clearInterval(timer); }
+    valueEl.textContent = String(Math.floor(current));
+  }, stepTime);
+}
+
+// Calculator demo
+on(calcBtn, 'click', () => {
   const a = 12, b = 5;
   const sum = a + b;
   const product = a * b;
-  renderLines("Calculator Result", [
-    "a = " + a + ", b = " + b,
-    "a + b = " + sum,
-    "a * b = " + product
-  ]);
+
+  animateCalcLine('Sum', sum, 'is-sum', false);
+  setTimeout(() => animateCalcLine('Product', product, 'is-product', true), 1000);
 });
 
-// ===== Comparison / Logical / Ternary demos =====
-on(compareBtn, 'click', function () {
+// Comparison demo
+on(compareBtn, 'click', () => {
   const a = 12, b = 5;
-  renderLines("Comparison Results", [
-    a + " == "  + b + "  -> " + (a ==  b),
-    a + " === " + b + " -> " + (a === b),
-    a + " > "   + b + "   -> " + (a >   b),
-    a + " <= "  + b + "  -> " + (a <=  b)
+  renderList('Comparison Results', [
+    a + ' ==  ' + b + '  → ' + (a == b),
+    a + ' === ' + b + ' → ' + (a === b),
+    a + ' > ' + b + '   → ' + (a > b),
+    a + ' <= ' + b + '  → ' + (a <= b)
   ]);
 });
 
-on(logicalBtn, 'click', function () {
+// Logical demo
+on(logicalBtn, 'click', () => {
   const hasID = true;
   const hasTicket = false;
-  renderLines("Logical Results", [
-    "hasID && hasTicket -> " + (hasID && hasTicket),
-    "hasID || hasTicket -> " + (hasID || hasTicket),
-    "!hasTicket         -> " + (!hasTicket)
+  renderList('Logical Results', [
+    'hasID && hasTicket → ' + (hasID && hasTicket),
+    'hasID || hasTicket → ' + (hasID || hasTicket),
+    '!hasTicket         → ' + (!hasTicket)
   ]);
 });
 
-on(ternaryBtn, 'click', function () {
+// Ternary demo
+on(ternaryBtn, 'click', () => {
   const score = 68;
-  const verdict = (score >= 70) ? "Pass" : "Fail";
-  renderLines("Ternary Result", [
-    "score = " + score,
-    "score >= 70 ? 'Pass' : 'Fail' -> " + verdict
+  const verdict = (score >= 70) ? 'Pass ✅' : 'Fail ❌';
+  renderList('Ternary Result', [
+    'score = ' + score,
+    "score >= 70 ? 'Pass' : 'Fail' → " + verdict
   ]);
 });
 
-// ===== Cookie demo (session vs persistent) =====
-on(setCookieBtn, 'click', function () {
-  if (!cookieInput || !cookieResult) return;
-  const name = cookieInput.value.trim();
-  if (!name) {
-    cookieResult.textContent = "Enter a name first.";
-    return;
-  }
-  // session vs 7-day cookie
-  if (cookieTypePersist && cookieTypePersist.checked) {
-    setCookie("username", name, 7);
-    cookieResult.textContent = "Set persistent cookie: username=" + name + " (7 days).";
-  } else {
-    // session cookie: no expiry set
-    setCookie("username", name, 0);
-    cookieResult.textContent = "Set session cookie: username=" + name + ".";
-  }
-});
+// ============ Cookie helpers + demo ============
 
-on(getCookieBtn, 'click', function () {
-  if (!cookieResult) return;
-  const val = getCookie("username");
-  cookieResult.textContent = val ? ("Cookie value -> " + val) : "No cookie found.";
-});
+function setCookie(name, value, days) {
+  let expires = '';
+  if (days) {
+    const d = new Date();
+    d.setTime(d.getTime() + days * 24 * 60 * 60 * 1000);
+    expires = '; expires=' + d.toUTCString();
+  }
+  document.cookie = name + '=' + encodeURIComponent(value) + expires + '; path=/';
+}
+function getCookie(name) {
+  const key = name + '=';
+  const row = document.cookie.split('; ').find(c => c.startsWith(key));
+  return row ? decodeURIComponent(row.split('=')[1]) : null;
+}
+function deleteCookie(name) {
+  document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
+}
 
-on(deleteCookieBtn, 'click', function () {
+// Cookie demo buttons
+on(setCookieBtn, 'click', () => {
   if (!cookieResult) return;
-  deleteCookie("username");
-  cookieResult.textContent = "Cookie deleted.";
+  const name = (cookieInput && cookieInput.value.trim()) || '';
+  if (!name) { cookieResult.textContent = 'Please enter a name.'; return; }
+  setCookie('username', name, 7); // 7-day persistent cookie
+  cookieResult.textContent = 'Cookie set ✔';
+});
+on(getCookieBtn, 'click', () => {
+  if (!cookieResult) return;
+  const v = getCookie('username');
+  cookieResult.textContent = v ? ('Welcome back, ' + v + '!') : 'No cookie found.';
+});
+on(deleteCookieBtn, 'click', () => {
+  if (!cookieResult) return;
+  deleteCookie('username');
+  cookieResult.textContent = 'Cookie deleted.';
+});
+on(clearInputBtn, 'click', () => {
+  if (cookieInput) cookieInput.value = '';
 });
