@@ -123,7 +123,7 @@ const compareBtn = document.getElementById('compareBtn');
 const logicalBtn = document.getElementById('logicalBtn');
 const ternaryBtn = document.getElementById('ternaryBtn');
 
-// Show a titled list inside the green result box
+// Helper: show a titled list inside the green result box
 function renderList(title, lines) {
   if (!calcResult) return;
   calcResult.innerHTML = `
@@ -152,15 +152,5 @@ on(logicalBtn, 'click', () => {
     hasID && hasTicket → ${hasID && hasTicket},
     hasID || hasTicket → ${hasID || hasTicket},
     !hasTicket         → ${!hasTicket}
-  ]);
-});
-
-// Ternary demo
-on(ternaryBtn, 'click', () => {
-  const score = 68;
-  const verdict = (score >= 70) ? 'Pass ✅' : 'Fail ❌';
-  renderList('Ternary Result', [
-    score = ${score},
-    score >= 70 ? 'Pass' : 'Fail' → ${verdict}
   ]);
 });
