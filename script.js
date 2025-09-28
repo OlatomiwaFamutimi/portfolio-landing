@@ -1,17 +1,14 @@
-// ===== Safety + helpers =====
 'use strict';
 
+// tiny helpers (safe, no fancy syntax)
 function $(id) { return document.getElementById(id); }
-function safeAdd(id, evt, handler) {
-  const el = $(id);
+function on(id, evt, fn) {
+  var el = $(id);
   if (!el) { console.warn('Missing element:', id); return; }
-  try { el.addEventListener(evt, handler); }
-  catch (e) { console.error('Listener failed for', id, e); }
+  el.addEventListener(evt, fn);
 }
-
-function setText(id, text) { const el = $(id); if (el) el.textContent = text; }
-function appendHtml(id, html) { const el = $(id); if (el) el.innerHTML = html; }
-
+function setText(id, txt) { var el = $(id); if (el) el.textContent = txt; }
+function setHTML(id, html) { var el = $(id); if (el) el.innerHTML = html; }
 // Catch any uncaught runtime error so others still run
 window.addEventListener('error', (evt) => {
   console.error('Uncaught error:', evt.message);
