@@ -1,281 +1,207 @@
+// ===== Safety + helpers =====
 'use strict';
 
-// Small helper
-const on = (el, evt, fn) => el && el.addEventListener(evt, fn);
-
-// Grab all elements safely
-const byId = id => document.getElementById(id);
-const toggleBtn       = byId('toggleBtn');
-const welcomeBtn      = byId('welcomeBtn');
-const checkDayBtn     = byId('checkDayBtn');
-const generateBtn     = byId('generateBtn');
-const daySwitchBtn    = byId('daySwitchBtn');
-
-const revealBtn       = byId('revealBtn');
-const revealBox       = byId('revealBox');
-const countBtn        = byId('countBtn');
-const counter         = byId('counter');
-
-const calcBtn         = byId('calcBtn');
-const calcResult      = byId('calcResult');
-const compareBtn      = byId('compareBtn');
-const logicalBtn      = byId('logicalBtn');
-const ternaryBtn      = byId('ternaryBtn');
-
-const cookieInput     = byId('cookieInput');
-const setCookieBtn    = byId('setCookieBtn');
-const getCookieBtn    = byId('getCookieBtn');
-const deleteCookieBtn = byId('deleteCookieBtn');
-const clearInputBtn   = byId('clearInputBtn'); // ok if missing
-const cookieResult    = byId('cookieResult');
-
-const message         = byId('message');
-const numbersList     = byId('numbersList');
-
-// ============ Core demos ============
-
-// Dark mode
-on(toggleBtn, 'click', () => {
-  document.body.classList.toggle('dark');
-});
-
-// Welcome
-on(welcomeBtn, 'click', () => {
-  if (message) message.textContent = 'Welcome to my portfolio!';
-});
-
-// Check day (if/else)
-on(checkDayBtn, 'click', () => {
-  const names = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-  const d = new Date().getDay();
-  if (message) message.textContent = 'Today is ' + names[d] + '.';
-  alert('Today is ' + names[d]);
-});
-
-// Check day (switch)
-on(daySwitchBtn, 'click', () => {
-  const names = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-  const d = new Date().getDay();
-  let text;
-  switch (d) {
-    case 0: text = 'Sunday — weekend 🎉'; break;
-    case 6: text = 'Saturday — weekend 🎉'; break;
-    default: text = names[d] + ' — keep coding!'; break;
-  }
-  if (message) message.textContent = text;
-  alert('Today is ' + names[d]);
-});
-
-// Generate numbers (toggle)
-on(generateBtn, 'click', () => {
-  if (!numbersList) return;
-  if (numbersList.children.length > 0) { numbersList.innerHTML = ''; return; }
-  for (let i = 1; i <= 10; i++) {
-    const li = document.createElement('li');
-    li.textContent = 'Number ' + i;
-    numbersList.appendChild(li);
-  }
-});
-
-// Reveal box (CSS handles .show)
-on(revealBtn, 'click', () => {
-  if (revealBox) revealBox.classList.toggle('show');
-});
-
-// Counter animation
-on(countBtn, 'click', () => animateNumber(counter, 0, 100, 1000));
-function animateNumber(el, start, end, duration) {
-  if (!el) return;
-  let current = start;
-  const stepTime = 20;
-  const steps = Math.ceil(duration / stepTime);
-  const inc = (end - start) / steps;
-  const t = setInterval(() => {
-    current += inc;
-    if ((inc > 0 && current >= end) || (inc < 0 && current <= end)) {
-      current = end;
-      clearInterval(t);
-    }
-    el.textContent = String(Math.floor(current));
-  }, stepTime);
+function $(id) { return document.getElementById(id); }
+function safeAdd(id, evt, handler) {
+  const el = $(id);
+  if (!el) { console.warn('Missing element:', id); return; }
+  try { el.addEventListener(evt, handler); }
+  catch (e) { console.error('Listener failed for', id, e); }
 }
 
-// ============ Calculator + operators ============
+function setText(id, text) { const el = $(id); if (el) el.textContent = text; }
+function appendHtml(id, html) { const el = $(id); if (el) el.innerHTML = html; }
 
-// Helper to show a titled list in the green box
-function renderList(title, lines) {
-  if (!calcResult) return;
-  calcResult.innerHTML =
-    '<div class="calc-result show">' +
-    '<strong>' + title + '</strong>' +
-    '<ul>' + lines.map(li => '<li>' + li + '</li>').join('') + '</ul>' +
-    '</div>';
-}
-
-// Animate one “Sum: 17” style line
-function animateCalcLine(label, value, className, append) {
-  if (!calcResult) return;
-  if (!append) calcResult.innerHTML = '';
-
-  const line = document.createElement('div');
-  line.className = 'calc-result ' + className;
-  line.innerHTML = '<span class="calc-label">' + label + ':</span> ' +
-                   '<span class="calc-value">0</span>';
-  calcResult.appendChild(line);
-
-  // fade in
-  requestAnimationFrame(() => line.classList.add('show'));
-
-  // count up
-  const valueEl = line.querySelector('.calc-value');
-  let current = 0;
-  const duration = 900, stepTime = 20;
-  const steps = Math.ceil(duration / stepTime);
-  const inc = value / steps;
-
-  const timer = setInterval(() => {
-    current += inc;
-    if (current >= value) { current = value; clearInterval(timer); }
-    valueEl.textContent = String(Math.floor(current));
-  }, stepTime);
-}
-
-// Calculator demo
-on(calcBtn, 'click', () => {
-  const a = 12, b = 5;
-  const sum = a + b;
-  const product = a * b;
-
-  animateCalcLine('Sum', sum, 'is-sum', false);
-  setTimeout(() => animateCalcLine('Product', product, 'is-product', true), 1000);
-});
-
-// Comparison demo
-on(compareBtn, 'click', () => {
-  const a = 12, b = 5;
-  renderList('Comparison Results', [
-    a + ' ==  ' + b + '  → ' + (a == b),
-    a + ' === ' + b + ' → ' + (a === b),
-    a + ' > ' + b + '   → ' + (a > b),
-    a + ' <= ' + b + '  → ' + (a <= b)
-  ]);
-});
-
-// Logical demo
-on(logicalBtn, 'click', () => {
-  const hasID = true;
-  const hasTicket = false;
-  renderList('Logical Results', [
-    'hasID && hasTicket → ' + (hasID && hasTicket),
-    'hasID || hasTicket → ' + (hasID || hasTicket),
-    '!hasTicket         → ' + (!hasTicket)
-  ]);
-});
-
-// Ternary demo
-on(ternaryBtn, 'click', () => {
-  const score = 68;
-  const verdict = (score >= 70) ? 'Pass ✅' : 'Fail ❌';
-  renderList('Ternary Result', [
-    'score = ' + score,
-    "score >= 70 ? 'Pass' : 'Fail' → " + verdict
-  ]);
-});
-
-// ============ Cookie helpers + demo ============
-
-function setCookie(name, value, days) {
-  let expires = '';
-  if (days) {
-    const d = new Date();
-    d.setTime(d.getTime() + days * 24 * 60 * 60 * 1000);
-    expires = '; expires=' + d.toUTCString();
-  }
-  document.cookie = name + '=' + encodeURIComponent(value) + expires + '; path=/';
-}
-function getCookie(name) {
-  const key = name + '=';
-  const row = document.cookie.split('; ').find(c => c.startsWith(key));
-  return row ? decodeURIComponent(row.split('=')[1]) : null;
-}
-function deleteCookie(name) {
-  document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
-}
-
-// Cookie demo buttons
-on(setCookieBtn, 'click', () => {
-  if (!cookieResult) return;
-  const name = (cookieInput && cookieInput.value.trim()) || '';
-  if (!name) { cookieResult.textContent = 'Please enter a name.'; return; }
-  setCookie('username', name, 7); // 7-day persistent cookie
-  cookieResult.textContent = 'Cookie set ✔';
-});
-on(getCookieBtn, 'click', () => {
-  if (!cookieResult) return;
-  const v = getCookie('username');
-  cookieResult.textContent = v ? ('Welcome back, ' + v + '!') : 'No cookie found.';
-});
-on(deleteCookieBtn, 'click', () => {
-  if (!cookieResult) return;
-  deleteCookie('username');
-  cookieResult.textContent = 'Cookie deleted.';
-});
-on(clearInputBtn, 'click', () => {
-  if (cookieInput) cookieInput.value = '';
-});// ----- Error Handling Demo -----
-const errInput  = document.getElementById('errInput');
-const errorBox  = document.getElementById('errorBox');
-const parseBtn  = document.getElementById('parseBtn');
-const validateBtn = document.getElementById('validateBtn');
-const throwBtn  = document.getElementById('throwBtn');
-
-function showMsg(msg, type = '') {
-  if (!errorBox) return;
-  errorBox.className = 'notice' + (type ? ' ' + type : '');
-  errorBox.textContent = msg;
-}
-
-// 1) Try/Catch with a known failure (invalid JSON)
-on(parseBtn, 'click', () => {
-  try {
-    // Intentionally invalid JSON
-    JSON.parse('{ bad json }');
-    showMsg('Parsed successfully (this should not happen!)', 'ok');
-  } catch (err) {
-    showMsg(Caught error: ${err.message}, 'error');
-  } finally {
-    // Optional cleanup
-    // console.log('parseBtn finished');
-  }
-});
-
-// 2) Validate user input and throw our own error
-on(validateBtn, 'click', () => {
-  try {
-    const val = (errInput?.value ?? '').trim();
-    if (val === '') throw new Error('Please enter a value.');
-    const num = Number(val);
-    if (Number.isNaN(num)) throw new Error('Value must be a number.');
-    if (num < 0) throw new Error('Number must be non-negative.');
-    showMsg(Valid number ✅: ${num}, 'ok');
-  } catch (err) {
-    showMsg(err.message, 'error');
-  }
-});
-
-// 3) Throw a custom error to demonstrate handling
-class DemoError extends Error {
-  constructor(message) { super(message); this.name = 'DemoError'; }
-}
-on(throwBtn, 'click', () => {
-  try {
-    throw new DemoError('This is a custom DemoError we threw on purpose.');
-  } catch (err) {
-    showMsg(${err.name}: ${err.message}, 'error');
-  }
-});
-
-// Global fallback (optional): catch uncaught errors and show them
+// Catch any uncaught runtime error so others still run
 window.addEventListener('error', (e) => {
-  showMsg(Uncaught: ${e.message}, 'error');
+  console.error('Uncaught error:', e.message);
+  const box = $('message');
+  if (box) box.textContent = JS error: ${e.message};
 });
+
+// ===== Dark mode =====
+(function () {
+  if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark');
+  safeAdd('toggleBtn', 'click', () => {
+    document.body.classList.toggle('dark');
+    localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+  });
+})();
+
+// ===== Welcome message =====
+(function () {
+  safeAdd('welcomeBtn', 'click', () => {
+    setText('message', 'Welcome to my portfolio! 👋');
+  });
+})();
+
+// ===== Check day (if/else) =====
+(function () {
+  safeAdd('checkDayBtn', 'click', () => {
+    const day = new Date().toLocaleDateString(undefined, { weekday: 'long' });
+    setText('message', Today is ${day}.);
+  });
+})();
+
+// ===== Generate numbers (simple demo) =====
+(function () {
+  safeAdd('generateBtn', 'click', () => {
+    const nums = Array.from({ length: 5 }, () => Math.floor(Math.random() * 90) + 10);
+    appendHtml('message', Numbers: ${nums.join(', ')});
+  });
+})();
+
+// ===== Check day (switch) =====
+(function () {
+  safeAdd('daySwitchBtn', 'click', () => {
+    const d = new Date().getDay();
+    const map = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    setText('message', Switch says: ${map[d]});
+  });
+})();
+
+// ===== Simple calculator with animated lines =====
+(function () {
+  const calcResult = $('calcResult');
+
+  function animateCalcLine(label, value, className, append) {
+    if (!calcResult) return;
+    if (!append) calcResult.innerHTML = '';
+
+    const line = document.createElement('div');
+    line.className = calc-result ${className};
+    line.innerHTML = <span class="calc-label">${label}:</span> <span class="calc-value">0</span>;
+    calcResult.appendChild(line);
+    requestAnimationFrame(() => line.classList.add('show'));
+
+    const valueEl = line.querySelector('.calc-value');
+    let current = 0, duration = 900, step = 20, inc = value / (duration / step);
+    const timer = setInterval(() => {
+      current += inc;
+      if (current >= value) { current = value; clearInterval(timer); }
+      valueEl.textContent = Math.floor(current);
+    }, step);
+  }
+
+  safeAdd('calcBtn', 'click', () => {
+    const a = 12, b = 5;
+    animateCalcLine('Sum', a + b, 'is-sum', false);
+    setTimeout(() => animateCalcLine('Product', a * b, 'is-product', true), 800);
+  });
+})();
+
+// ===== Operators: comparison / logical / ternary =====
+(function () {
+  const calcResult = $('calcResult');
+  function renderList(title, lines) {
+    if (!calcResult) return;
+    calcResult.innerHTML =
+      <div class="calc-result show"><strong>${title}</strong><ul>${lines.map(li => `<li>${li}</li>).join('')}</ul></div>`;
+  }
+
+  safeAdd('compareBtn', 'click', () => {
+    const a = 12, b = 5;
+    renderList('Comparison Results', [
+      ${a} ==  ${b}  → ${a == b},
+      ${a} === ${b} → ${a === b},
+      ${a} > ${b}   → ${a > b},
+      ${a} <= ${b}  → ${a <= b}
+    ]);
+  });
+
+  safeAdd('logicalBtn', 'click', () => {
+    const hasID = true, hasTicket = false;
+    renderList('Logical Results', [
+      hasID && hasTicket → ${hasID && hasTicket},
+      hasID || hasTicket → ${hasID || hasTicket},
+      !hasTicket         → ${!hasTicket}
+    ]);
+  });
+
+  safeAdd('ternaryBtn', 'click', () => {
+    const score = 68;
+    const verdict = score >= 70 ? 'Pass ✅' : 'Fail ❌';
+    renderList('Ternary Result', [
+      score = ${score},
+      score >= 70 ? 'Pass' : 'Fail' → ${verdict}
+    ]);
+  });
+})();
+
+// ===== Cookie demo (session vs persistent) =====
+(function () {
+  const result = $('cookieResult');
+  function getSelectedCookieType() {
+    const el = document.querySelector('input[name="cookieType"]:checked');
+    return el ? el.value : 'session';
+  }
+
+  function setCookie(name, value, days) {
+    const opts = [];
+    if (days) {
+      const d = new Date(); d.setTime(d.getTime() + days * 864e5);
+      opts.push('expires=' + d.toUTCString());
+    }
+    opts.push('path=/');
+    document.cookie = ${encodeURIComponent(name)}=${encodeURIComponent(value)}; ${opts.join('; ')};
+  }
+  function getCookie(name) {
+    const m = document.cookie.match(new RegExp('(?:^|; )' + encodeURIComponent(name) + '=([^;]*)'));
+    return m ? decodeURIComponent(m[1]) : null;
+  }
+  function deleteCookie(name) { document.cookie = encodeURIComponent(name) + '=; Max-Age=0; path=/'; }
+
+  safeAdd('setCookieBtn', 'click', () => {
+    const name = ($('cookieInput')?.value || '').trim();
+    if (!name) { if (result) result.textContent = 'Please enter a name.'; return; }
+    const type = getSelectedCookieType();
+    if (type === 'persistent') setCookie('username', name, 7);
+    else setCookie('username', name); // session
+    if (result) result.textContent = Saved ${type} cookie for "${name}".;
+  });
+
+  safeAdd('getCookieBtn', 'click', () => {
+    const v = getCookie('username');
+    if (result) result.textContent = v ? Hello, ${v}! : 'No cookie found.';
+  });
+
+  safeAdd('deleteCookieBtn', 'click', () => {
+    deleteCookie('username');
+    if (result) result.textContent = 'Cookie deleted.';
+  });
+})();
+
+// ===== Error-handling demo =====
+(function () {
+  const result = $('errorBox');
+  function show(type, msg) {
+    if (!result) return;
+    result.className = 'notice ' + type;
+    result.textContent = msg;
+  }
+
+  safeAdd('parseBtn', 'click', () => {
+    try {
+      const raw = $('errInput')?.value ?? '';
+      JSON.parse(raw); // will fail if not valid JSON
+      show('ok', 'Valid JSON ✅');
+    } catch (e) {
+      show('error', 'JSON error: ' + e.message);
+    }
+  });
+
+  safeAdd('validateBtn', 'click', () => {
+    try {
+      const n = Number(($('errInput')?.value ?? '').trim());
+      if (!Number.isFinite(n)) throw new Error('Please enter a valid number');
+      show('ok', Thanks, number is ${n});
+    } catch (e) {
+      show('error', e.message);
+    }
+  });
+
+  safeAdd('throwBtn', 'click', () => {
+    try { throw new Error('Custom error from demo'); }
+    catch (e) { show('error', e.message); }
+  });
+})();
