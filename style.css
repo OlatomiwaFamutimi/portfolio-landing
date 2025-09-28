@@ -468,4 +468,61 @@ body.dark #cookieDemo input[type="text"] {
 
 body.dark #cookieDemo input[type="text"]::placeholder {
   color: #94a3b8;
+}/* === Cookie Demo polish === */
+:root {
+  --text: #222;
+  --muted: #555;
+  --card-bg: #fff;
+  --card-border: #d7d7d7;
+}
+body.dark {
+  --text: #f3f5f7;
+  --muted: #c9d1d9;
+  --card-bg: #1f2937;      /* slate-800 */
+  --card-border: #334155;  /* slate-700 */
+}
+
+#cookieDemo {
+  max-width: 560px;
+  margin: 0 auto 1.25rem;
+  padding: 1rem 1.25rem;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  color: var(--text);
+}
+
+#cookieDemo h3 {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  margin: 0 0 .75rem;
+  font-size: 1.1rem;
+  color: var(--text);
+}
+
+#cookieInput {
+  width: 100%;
+  color: var(--text);
+}
+
+.cookie-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 10px 0;
+  font-weight: 500;
+  color: var(--text);      /* keep readable in dark mode */
+}
+
+.cookie-option input[type="radio"] {
+  accent-color: #0ea5e9;   /* visible blue dot */
+}
+
+#cookieResult {
+  margin-top: 12px;
+  padding: .6rem .75rem;
+  border: 1px dashed var(--card-border);
+  border-radius: 6px;
+  color: var(--muted);
 }
