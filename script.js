@@ -133,4 +133,12 @@ on(logicalBtn, 'click', () => {
     hasID || hasTicket → ${hasID || hasTicket},
     !hasTicket         → ${!hasTicket}
   ]);
+});// Ternary demo
+on(ternaryBtn, 'click', () => {
+  const score = 68;
+  const verdict = (score >= 70) ? 'Pass ✅' : 'Fail ❌';
+  renderList('Ternary Result', [
+    score = ${score},
+    score >= 70 ? 'Pass' : 'Fail' → ${verdict}
+  ]);
 });
