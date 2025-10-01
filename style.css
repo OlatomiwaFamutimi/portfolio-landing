@@ -612,3 +612,13 @@ body.dark .notice.ok { background: rgba(80,170,140,.12); border-color: #7ed0b2; 
   border: 2px solid #58a6ff;
   border-radius: 8px;
 }
+h2 {
+    text-align: center;
+    color: #00ADB5;
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+    text-shadow: 0px 0px 5px rgba(0, 173, 181, 0.5); /* soft glow */
+}
