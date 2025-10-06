@@ -1,748 +1,112 @@
-/* Base layout */
-* { box-sizing: border-box; }
-html, body { margin: 0; padding: 0; font-family: system-ui, Arial, sans-serif; }
-section, header { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
-h1, h2 { margin: 0 0 12px; }
-
-/* Nav bar */
-nav { position: sticky; top: 0; z-index: 10; background: #222; }
-nav ul { display: flex; gap: 24px; list-style: none; padding: 12px 20px; margin: 0; }
-nav a { color: #ddd; text-decoration: none; padding-bottom: 6px; border-bottom: 2px solid transparent; }
-nav a:hover { color: #fff; border-bottom-color: #f66; }
-nav a.active { color: #fff; border-bottom-color: #f66; }
-
-/* Hero */
-.hero { padding: 60px 20px; }
-
-/* Buttons */
-button {
-  appearance: none;
-  border: 1px solid #bbb;
-  background: #f5f5f5;
-  color: #222;
-  padding: 8px 12px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background .2s, color .2s, border-color .2s;
-  margin: 6px 8px 6px 0;
-}
-button:hover { background: #ececec; }
-button:active { transform: translateY(1px); }
-
-/* Message + list */
-#message { margin: 10px 0 6px; font-weight: 600; }
-#numbersList { margin: 6px 0 0 20px; }
-
-/* Light theme body */
-body { background: #fafafa; color: #222; }
-
-/* Dark mode overrides (JS toggles body.dark) */
-body.dark { background: #121212; color: #e9e9e9; }
-body.dark nav { background: #1a1a1a; }
-body.dark nav a { color: #cfcfcf; }
-body.dark button {
-  background: #1f1f1f;
-  color: #e9e9e9;
-  border-color: #3a3a3a;
-}
-body.dark button:hover { background: #262626; }
-body.dark a { color: #9fd3ff; }/* Smooth toggle box */
-.hidden-box {
-  opacity: 0;
-  transform: translateY(12px);
-  transition: opacity 400ms ease, transform 400ms ease;
-  background: rgba(255,255,255,0.06);
-  padding: 12px 16px;
-  border-radius: 8px;
-  width: fit-content;
-  margin-top: 10px;
-}
-.hidden-box.show {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Counter */
-#counter {
-  font-size: 1.4rem;
-  margin: 10px 0;
-  font-weight: bold;
-}
-
-/* Scroll reveal */
-.reveal-on-scroll {
-  opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 500ms ease, transform 500ms ease;
-}
-.reveal-on-scroll.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Dark mode smoother */
-body {
-  transition: background-color 250ms ease, color 250ms ease;
-}/* === Animations === */
-
-/* Bounce */
-@keyframes bounce {
-  0%, 20%, 50%, 80%, 100% {
-    transform: translateY(0);
-  }
-  40% {
-    transform: translateY(-30px);
-  }
-  60% {
-    transform: translateY(-15px);
-  }
-}
-
-.bounce {
-  display: inline-block;
-  animation: bounce 2s infinite;
-}
-
-/* Fade In */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-.fade-in {
-  opacity: 0;
-  animation: fadeIn 2s ease-in forwards;
-}
-
-/* Typewriter */
-.typewriter {
-  overflow: hidden;
-  border-right: .15em solid orange;
-  white-space: nowrap;
-  letter-spacing: .15em;
-  animation:
-    typing 3.5s steps(30, end),
-    blink-caret .75s step-end infinite;
-}
-
-@keyframes typing {
-  from { width: 0 }
-  to { width: 100% }
-}
-
-@keyframes blink-caret {
-  from, to { border-color: transparent }
-  50% { border-color: orange }
-}
-
-You sent
-/* Animation delays for intro sequence */
-.bounce {
-  animation-delay: 0s;
-}
-
-.fade-in {
-  animation-delay: 1s;
-}
-
-.typewriter {
-  animation-delay: 2s;
-}
-.typewriter {
-  overflow: hidden;
-  border-right: .15em solid orange;
-  white-space: nowrap;
-  letter-spacing: .15em;
-  animation:
-    typing 3.5s steps(30, end) forwards,
-    blink-caret .75s step-end infinite;
-  animation-delay: 2s; /* starts after bounce + fade */
-}/* Bounce */
-@keyframes bounce {
-  0%, 20%, 50%, 80%, 100% {
-    transform: translateY(0);
-  }
-  40% {
-    transform: translateY(-30px);
-  }
-  60% {
-    transform: translateY(-15px);
-  }
-}
-
-.bounce {
-  display: inline-block;
-  animation: bounce 2s ease; /* runs once on load */
-}/* Bounce once on load */
-.bounce {
-  display: inline-block;
-  animation: bounce 2s 1; /* run once */
-}
-
-/* Bounce again when hovered */
-.bounce:hover {
-  animation: bounce 2s; /* plays while hovering */
-}.typewriter {
-  overflow: hidden;
-  border-right: .15em solid orange;
-  white-space: nowrap;
-  letter-spacing: .15em;
-  animation:
-    typing 3.5s steps(30, end) forwards,
-    blink-caret .75s step-end infinite;
-  animation-delay: 2s; /* wait until bounce ends */
-}#calcResult {
-  margin-top: 8px;
-  font-weight: bold;
-  color: lightgreen;
-}/* === Calculator Result Box === */
-#calcResult {
-  margin-top: 1rem;
-  padding: 1rem;
-  border: 2px solid #4caf50;
-  border-radius: 6px;
-  background: #f0fff4;
-  color: #2e7d32;
-  font-family: monospace;
-  font-size: 1rem;
-  line-height: 1.5;
-  max-width: 400px;
-}#calcResult{
-  text-align: center;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,.08);
-}/* --- Calculator result polish --- */
-.result-box {
-  position: relative;
-  margin: 12px auto;
-  max-width: 520px;
-  padding: 14px 16px;
-  border: 2px solid #acf59b;
-  border-radius: 10px;
-  background: rgba(124, 252, 0, 0.06);
-  box-shadow: 0 8px 22px rgba(0,0,0,0.08);
-  transition: background 250ms ease, border-color 250ms ease;
-}
-
-/* single result line */
-.calc-result {
-  opacity: 0;
-  transform: translateY(6px);
-  transition: opacity 350ms ease, transform 350ms ease;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: 0.95rem;
-  line-height: 1.5;
-  margin: 4px 0;
-}
-.calc-result.show { opacity: 1; transform: translateY(0); }
-
-.calc-label { color: #9aa3ad; margin-right: 8px; }
-.calc-value { font-weight: 700; }
-
-/* accent colors per line */
-.is-sum      { --accent: #22c55e; }   /* green */
-.is-product  { --accent: #3b82f6; }   /* blue */
-.is-sum .calc-value, .is-product .calc-value { color: var(--accent); 
-}.calc-result ul { margin: 6px 0 0; padding-left: 1rem; }
-.calc-result li { line-height: 1.6; }/* --- Cookie Demo Styling --- */
-#cookieDemo {
-  margin: 20px 0;
-  padding: 15px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  background: #f9f9f9;
-  max-width: 400px;
-}
-
-#cookieDemo input {
-  padding: 6px;
-  margin: 6px 0;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  width: calc(100% - 12px);
-}
-
-#cookieDemo button {
-  margin: 5px 3px;
-  padding: 6px 12px;
-  border: none;
-  border-radius: 4px;
-  background: #007acc;
-  color: white;
-  cursor: pointer;
-  font-size: 14px;
-  transition: background 0.3s ease;
-}
-
-#cookieDemo button:hover {
-  background: #005f99;
-}
-
-#cookieResult {
-  margin-top: 10px;
-  padding: 10px;
-  border: 1px dashed #aaa;
-  background: #fff;
-  min-height: 30px;
-  font-family: monospace;
-}body { transition: background-color 250ms ease, color 250ms ease; }/* --- Cookie demo visibility fixes --- */
-#cookieDemo label { 
-  color: inherit;          /* use section text color */
-  opacity: 1;              /* ensure fully visible */
-}
-
-body.dark #cookieDemo label {
-  color: #e8f0ff;          /* readable on dark bg */
-}
-
-body:not(.dark) #cookieDemo label {
-  color: #102027;          /* readable on light bg */
-}
-
-/* Make radio dots easy to see */
-#cookieDemo input[type="radio"] {
-  accent-color: #2aa9ff;   /* modern browsers */
-}
-
-/* Optional: tidy the radio row */
-#cookieDemo .cookie-options {
-  display: flex;
-  gap: 16px;
-  align-items: center;
-  margin: 10px 0;
-}/* Cookie demo – force readable text on the light card */
-#cookieDemo,
-#cookieDemo h3,
-#cookieDemo label,
-#cookieDemo p {
-  color: #1a1a1a !important; /* dark text on light card */
-}
-
-/* Radio row layout */
-#cookieDemo .cookie-type-row {
-  display: flex;
-  gap: 18px;
-  align-items: center;
-  margin: 10px 0 14px;
-  flex-wrap: wrap;
-}
-
-#cookieDemo label {
-  font-size: 0.95rem;
-  line-height: 1.3;
-  user-select: none;
-}
-
-#cookieDemo input[type="text"]::placeholder {
-  color: #7a7a7a;
-}
-
-/* Make the result paragraph clearly visible */
-#cookieDemo #cookieResult {
-  margin: 10px 0 14px;
-  font-size: 0.95rem;
-}
-
-/* If you have a .dark mode that inverts card colors, keep the cookie text dark enough */
-.dark #cookieDemo,
-.dark #cookieDemo h3,
-.dark #cookieDemo label,
-.dark #cookieDemo p {
-  color: #eaeaea !important;  /* lighter text in dark mode background */
-}/* Cookie demo layout & colors */
-#cookieDemo h3 {
-  color: inherit;
-  margin-bottom: 10px;
-}
-
-.cookie-option {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin: 6px 0;
-  color: inherit;             /* follow light/dark text color */
-  font-weight: 500;
-  cursor: pointer;            /* whole row clickable */
-}
-
-/* make radio dots use theme color (modern browsers) */
-.cookie-option input[type="radio"] {
-  accent-color: #1e90ff;
-  margin: 0;
-}
-
-/* ensure readability in dark mode */
-body.dark #cookieDemo,
-body.dark #cookieDemo * {
-  color: #eaeaea;
-}
-
-#cookieResult {
-  color: inherit;
-}/* --- Cookie Demo visibility hard-fix --- */
-#cookieDemo,
-#cookieDemo * {
-  opacity: 1 !important;
-}
-
-/* Heading */
-#cookieDemo h3 {
-  color: #222 !important;
-}
-
-/* Radio labels */
-#cookieDemo .cookie-option span {
-  color: #222 !important;
-  font-weight: 600;
-}
-
-/* Helper text */
-#cookieResult {
-  color: #333 !important;
-}
-
-/* Dark mode overrides */
-body.dark-mode #cookieDemo h3,
-body.dark-mode #cookieDemo .cookie-option span,
-body.dark-mode #cookieResult {
-  color: #f1f1f1 !important;
-}/* === Cookie demo fixes === */
-#cookieDemo {
-  max-width: 520px;
-  margin: 12px auto;
-  padding: 16px 20px;
-  border: 1px solid rgba(0,0,0,.12);
-  border-radius: 12px;
-  background: rgba(255,255,255,.65);
-}
-
-#cookieDemo h3 {
-  margin: 0 0 10px;
-  font-weight: 700;
-  color: #222;               /* visible in light mode */
-  opacity: 1 !important;     /* if any global style lowered it */
-}
-
-#cookieDemo input[type="text"] {
-  width: 100%;
-  padding: 10px 12px;
-}
-
-.cookie-option {
-  display: flex;             /* keep dot + text on one line */
-  align-items: center;
-  gap: 8px;
-  margin: 10px 0;
-  color: #333;
-}
-
-.cookie-option input[type="radio"] {
-  margin: 0;
-  transform: translateY(1px);
-  accent-color: #0ea5e9;     /* blue dot */
-}
-
-#cookieResult {
-  margin-top: 12px;
-  font-size: .95rem;
-  color: #333;
-}
-
-/* Dark mode overrides */
-body.dark #cookieDemo {
-  background: rgba(16,16,20,.75);
-  border-color: rgba(255,255,255,.18);
-}
-
-body.dark #cookieDemo h3,
-body.dark .cookie-option,
-body.dark #cookieResult {
-  color: #e8eef6;            /* readable text */
-}
-
-body.dark #cookieDemo input[type="text"] {
-  background: #0f172a;
-  color: #e2e8f0;
-  border: 1px solid #334155;
-}
-
-body.dark #cookieDemo input[type="text"]::placeholder {
-  color: #94a3b8;
-}/* === Cookie Demo polish === */
-:root {
-  --text: #222;
-  --muted: #555;
-  --card-bg: #fff;
-  --card-border: #d7d7d7;
-}
-body.dark {
-  --text: #f3f5f7;
-  --muted: #c9d1d9;
-  --card-bg: #1f2937;      /* slate-800 */
-  --card-border: #334155;  /* slate-700 */
-}
-
-#cookieDemo {
-  max-width: 560px;
-  margin: 0 auto 1.25rem;
-  padding: 1rem 1.25rem;
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-radius: 10px;
-  color: var(--text);
-}
-
-#cookieDemo h3 {
-  display: flex;
-  align-items: center;
-  gap: .5rem;
-  margin: 0 0 .75rem;
-  font-size: 1.1rem;
-  color: var(--text);
-}
-
-#cookieInput {
-  width: 100%;
-  color: var(--text);
-}
-
-.cookie-option {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin: 10px 0;
-  font-weight: 500;
-  color: var(--text);      /* keep readable in dark mode */
-}
-
-.cookie-option input[type="radio"] {
-  accent-color: #0ea5e9;   /* visible blue dot */
-}
-
-#cookieResult {
-  margin-top: 12px;
-  padding: .6rem .75rem;
-  border: 1px dashed var(--card-border);
-  border-radius: 6px;
-  color: var(--muted);
-}/* --- Cookie Demo: fix dark-mode contrast + left-align radios --- */
-:root {
-  --text: #222;
-  --muted: #555;
-  --card-bg: #fff;
-  --card-border: #d7d7d7;
-}
-body.dark {
-  --text: #f3f5f7;
-  --muted: #c9d1d9;
-  --card-bg: #1f2937;      /* slate-800 */
-  --card-border: #334155;  /* slate-700 */
-}
-
-/* container */
-#cookieDemo {
-  max-width: 560px;
-  margin: 0 auto 1.25rem;
-  padding: 1rem 1.25rem;
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-radius: 10px;
-  color: var(--text);
-}
-
-/* heading + input */
-#cookieDemo h3 { color: var(--text); margin: 0 0 .75rem; }
-#cookieDemo input[type="text"] { color: var(--text); }
-
-/* make each label visible in dark mode and sit on the LEFT in a column */
-#cookieDemo .cookie-option {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  margin: 8px 12px 0 0;     /* small space between the two labels */
-  color: var(--text) !important;
-  opacity: 1 !important;
-}
-
-/* ensure any nested span inherits the strong color */
-#cookieDemo .cookie-option span { color: var(--text) !important; }
-
-/* put both labels on their own line under the input (left side) */
-#cookieDemo .cookie-option { width: auto; }
-#cookieDemo .cookie-option:first-of-type { display: inline-flex; }
-#cookieDemo .cookie-option + .cookie-option { display: inline-flex; }
-
-/* radio dot color stays visible */
-#cookieDemo .cookie-option input[type="radio"] {
-  accent-color: #0ea5e9;
-}
-
-/* result box */
-#cookieResult {
-  margin-top: 12px;
-  padding: .6rem .75rem;
-  border: 1px dashed var(--card-border);
-  border-radius: 6px;
-  color: var(--muted);
-}
-/* Error demo styles */
-.card { border: 1px solid rgba(0,0,0,.15); border-radius: 8px; padding: 12px; margin: 16px 0; }
-.row { display: flex; gap: 8px; flex-wrap: wrap; margin: 8px 0; }
-
-.notice { 
-  margin-top: 10px; padding: 10px; border-radius: 6px; 
-  border: 1px dashed #9aa; background: rgba(0,0,0,.03); color: inherit;
-}
-.notice.error { border-color: #d66; background: rgba(220,80,80,.08); }
-.notice.ok    { border-color: #5a8; background: rgba(80,170,140,.08); }
-
-/* Dark mode tweaks (if you use .dark on <body>) */
-body.dark .notice { background: rgba(255,255,255,.04); border-color: rgba(255,255,255,.25); }
-body.dark .notice.error { background: rgba(220,80,80,.12); border-color: #e58888; }
-body.dark .notice.ok { background: rgba(80,170,140,.12); border-color: #7ed0b2; }/* Redirect Message */
-#redirectMsg {
-  margin: 20px auto;
-  padding: 12px 18px;
-  max-width: 400px;
-  text-align: center;
-  font-weight: bold;
-  font-size: 1.1em;
-  color: #fff;
-  background: #2d333b; /* dark theme box */
-  border: 2px solid #58a6ff;
-  border-radius: 8px;
-}
-h2 {
-    text-align: center;
-    color: #00ADB5;
-    font-size: 1.8rem;
-    font-weight: bold;
-    margin-top: 20px;
-    margin-bottom: 15px;
-    letter-spacing: 1px;
-    text-shadow: 0px 0px 5px rgba(0, 173, 181, 0.5); /* soft glow */
-}/* Reset and base styles */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Poppins', sans-serif;
-  background-color: #0d1117;
-  color: #e6edf3;
-  line-height: 1.6;
-  scroll-behavior: smooth;
-}
-
-/* Navbar */
-header {
-  background-color: #161b22;
-  padding: 1rem 2rem;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.navbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.logo {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #58a6ff;
-}
-
-.nav-links {
-  list-style: none;
-  display: flex;
-  gap: 1.5rem;
-}
-
-.nav-links a {
-  color: #c9d1d9;
-  text-decoration: none;
-  font-weight: 500;
-  transition: color 0.3s ease;
+/* ===== Base / Variables ===== */
+:root{
+  --bg: #0f0f10;
+  --panel: #151617;
+  --text: #e7e7e9;
+  --muted: #b9bcc3;
+  --brand: #16d0d1;
+  --brand-2: #0fb6b6;
+  --link: #59d6ff;
+  --border: #27292c;
+  --shadow: 0 8px 20px rgba(0,0,0,.35);
+}
+
+*{ box-sizing:border-box; }
+html,body{ height:100%; }
+body{
+  margin:0;
+  font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
+  color:var(--text);
+  background:var(--bg);
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+
+/* ===== Layout ===== */
+header{
+  position:sticky; top:0; z-index:50;
+  background:linear-gradient(180deg, #121314, #101112);
+  border-bottom:1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+header h1{
+  margin:0; padding:18px 20px 6px;
+  text-align:center; font-size:clamp(22px, 3.6vw, 42px);
+  letter-spacing:.5px; font-weight:800;
+  color: var(--brand);
+  text-shadow: 0 0 16px rgba(22,208,209,.35);
+}
+
+nav ul{
+  margin:0; padding:0 12px 14px; list-style:none;
+  display:flex; gap:18px; justify-content:center; flex-wrap:wrap;
+}
+nav a{
+  display:inline-block; padding:8px 12px; border-radius:8px;
+  color:var(--text); text-decoration:none; font-weight:600;
+  opacity:.9; border:1px solid transparent;
+}
+nav a:hover{ background:#16181a; border-color:var(--border); }
+nav a.active{ border-color:var(--brand); color:var(--brand); }
+
+main{ width:min(1000px, 92%); margin:28px auto 64px; }
+section{ padding:28px 20px; background:var(--panel); border:1px solid var(--border); border-radius:14px; box-shadow:var(--shadow); }
+section + section{ margin-top:20px; }
+
+h2{
+  margin:0 0 10px;
+  font-size: clamp(22px, 2.8vw, 36px);
+  color: var(--brand);
+  letter-spacing:.4px;
+}
+p{ margin:8px 0 14px; color:var(--muted); }
+
+/* Lists in Projects */
+#projects ul{ margin:10px 0 0 18px; }
+#projects li{ margin:6px 0; }
+#projects a{ color:var(--link); }
+#projects a:hover{ text-decoration:underline; }
+
+/* Demo buttons & panels */
+.demo-buttons{ display:flex; flex-wrap:wrap; gap:12px; margin:10px 0 16px; }
+button{
+  background:#222528; color:var(--text);
+  border:1px solid var(--border); border-radius:10px;
+  padding:10px 14px; font-weight:600; cursor:pointer;
+  transition:transform .08s ease, background .2s ease, border-color .2s ease;
+}
+button:hover{ background:#24282c; border-color:#2f3439; }
+button:active{ transform: translateY(1px) scale(.99); }
+
+#message,
+#calcResult{
+  background:#112417;
+  border:1px dashed #2a8f53;
+  color:#c7f3d6;
+  padding:14px; border-radius:10px;
+}
+
+/* Footer */
+footer{
+  padding:28px 16px; text-align:center; color:var(--muted);
+  border-top:1px solid var(--border);
+  background:#111214;
+}
+
+/* ===== Dark Mode (body.dark added by JS) ===== */
+body.dark{
+  --bg:#0c0d0e;
+  --panel:#121316;
+  --text:#e9eaec;
+  --muted:#c1c4cb;
+  --border:#23262a;
 }
 
-.nav-links a:hover {
-  color: #58a6ff;
-}
-
-/* Hero Section */
-.hero {
-  text-align: center;
-  padding: 6rem 2rem;
-  background: linear-gradient(135deg, #0d1117, #161b22);
-}
-
-.hero h1 {
-  font-size: 2.5rem;
-  color: #58a6ff;
-  animation: bounce 2s infinite;
-}
-
-.hero p {
-  margin-top: 1rem;
-  font-size: 1.2rem;
-  color: #c9d1d9;
-}
-
-.hero h2 {
-  margin-top: 2rem;
-  font-size: 1.5rem;
-  color: #8b949e;
-}
-
-/* Sections */
-section {
-  padding: 4rem 2rem;
-  max-width: 900px;
-  margin: auto;
-}
-
-section h2 {
-  font-size: 2rem;
-  color: #58a6ff;
-  margin-bottom: 1rem;
-  border-bottom: 2px solid #58a6ff;
-  display: inline-block;
-  padding-bottom: 0.3rem;
-}
-
-section ul {
-  list-style: none;
-}
-
-section ul li {
-  margin: 0.5rem 0;
-}
-
-/* Contact */
-#contact a {
-  color: #58a6ff;
-  text-decoration: none;
-}
-
-#contact a:hover {
-  text-decoration: underline;
-}
+/* ===== Utilities ===== */
+.hidden{ display:none !important; }
 
-/* Animations */
-@keyframes bounce {
-  0%, 20%, 50%, 80%, 100% {
-    transform: translateY(0);
-  }
-  40% {
-    transform: translateY(-10px);
-  }
-  60% {
-    transform: translateY(-5px);
-  }
+/* ===== Responsive tweaks ===== */
+@media (max-width: 520px){
+  nav a{ padding:8px 10px; }
+  button{ width:100%; }
 }
