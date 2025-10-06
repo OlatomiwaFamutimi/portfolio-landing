@@ -1,5 +1,47 @@
 'use strict';
 
+// --- tiny DOM helpers (null-safe) ---
+const $ = (id) => document.getElementById(id);
+const on = (id, evt, fn, opts) => { const el = $(id); if (el) el.addEventListener(evt, fn, opts); };
+const setText = (id, txt) => { const el = $(id); if (el) el.textContent = txt; };
+
+// --- theme handling (works even if button/boxes are missing) ---
+const THEME_KEY = 'theme';
+const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+const initialTheme = localStorage.getItem(THEME_KEY) || (prefersDark ? 'dark' : 'light');
+
+// store the theme on <html data-theme="dark|light"> (easy to style in CSS)
+document.documentElement.dataset.theme = initialTheme;
+
+on('toggleTheme', 'click', () => {
+  const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+  document.documentElement.dataset.theme = next;
+  localStorage.setItem(THEME_KEY, next);
+});
+
+// --- example: wire up demos only if the elements exist ---
+on('welcomeBtn', 'click', () => setText('message', 'Welcome to my portfolio! 😊'));
+
+on('checkDayBtn', 'click', () => {
+  const today = new Date().toLocaleDateString(undefined, { weekday: 'long' });
+  setText('message', Today is ${today}.);
+});
+
+on('generateBtn', 'click', () => {
+  const nums = Array.from({ length: 5 }, () => Math.floor(Math.random() * 90) + 10);
+  setText('message', Numbers: ${nums.join(', ')});
+});
+
+// calculator example (guarded)
+on('calcBtn', 'click', () => {
+  const aEl = $('a'), bEl = $('b'), out = $('calcResult');
+  if (!aEl || !bEl || !out) return;
+  const a = Number(aEl.value), b = Number(bEl.value);
+  if (Number.isNaN(a) || Number.isNaN(b)) { out.textContent = 'Please enter valid numbers.'; return; }
+  out.textContent = ${a} + ${b} = ${a + b};
+});
+
+// cookie demo helpers remain the same—just wrap each with on('id', ...) like above
 // ===== Helpers =====
 function $(id) { return document.getElementById(id); }
 function on(id, evt, fn) {
