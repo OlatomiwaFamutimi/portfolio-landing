@@ -2,133 +2,51 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>My Portfolio</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-<h2>🚀 Front-End Web Developer</h2>
+
   <!-- Navigation -->
-  <nav>
-    <ul>
-      <li><a href="#about"   class="nav-link active">About</a></li>
-      <li><a href="#projects" class="nav-link">Projects</a></li>
-      <li><a href="#contact"  class="nav-link">Contact</a></li>
-      <li><a href="#jsdemos"  class="nav-link">JS Demos</a></li>
-    </ul>
-  </nav>
+  <header>
+    <nav class="navbar">
+      <h1 class="logo">Olatomiwa</h1>
+      <ul class="nav-links">
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#typography">Typography</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
 
-  <!-- Hero -->
-  <header class="hero" id="about">
-  <h1 class="bounce">🚀 Hello, I’m Olatomiwa</h1>
-  <p class="fade-in">Welcome to my portfolio landing page!</p>
-  <h2 class="typewriter">I build things with code 💻</h2>
-</header>
+  <!-- Hero Section -->
+  <section id="about" class="hero">
+    <h1 class="bounce">Hello, I'm Olatomiwa</h1>
+    <p class="fade-in">Welcome to my portfolio landing page!</p>
+    <h2 class="typewriter">I build things with code 💻</h2>
+  </section>
 
-  <!-- Projects -->
+  <!-- Projects Section -->
   <section id="projects">
     <h2>Projects</h2>
     <ul>
-      <li>
-        <a href="#" target="_blank">Portfolio Website</a>
-        <span> — Built with HTML &amp; CSS</span>
-      </li>
-      <li>
-        <a href="#" target="_blank">E-commerce Mockup</a>
-        <span> — Styled with Bootstrap</span>
-      </li>
+      <li><a href="#" target="_blank">Portfolio Website</a> – Built with HTML & CSS</li>
+      <li><a href="#" target="_blank">E-commerce Mockup</a> – Styled with Bootstrap</li>
     </ul>
   </section>
-<section id="typography">
-  <h2>Typography Practice</h2>
-  <p>Experimenting with text, headings, and font styling in HTML & CSS.</p>
-  <h1>Heading One</h1>
-  <h2>Heading Two</h2>
-  <h3>Heading Three</h3>
-</section>
-  <!-- Contact -->
-  <section id="contact">
-    <h2>Contact</h2>
-    <p>Email:
-      <a href="mailto:famutimiolatomiwa7@gmail.com">famutimiolatomiwa7@gmail.com</a>
-    </p>
+
+  <!-- Typography Section -->
+  <section id="typography">
+    <h2>Typography Practice</h2>
+    <h3>Experimenting with text, headings, and design in HTML & CSS.</h3>
   </section>
 
-  <!-- JS Demos -->
- <!-- JavaScript Demos -->
-<section id="demos">
-  <h2>JavaScript Demos</h2>
+  <!-- Contact Section -->
+  <section id="contact">
+    <h2>Contact</h2>
+    <p>Email: <a href="mailto:olatomiiwa@example.com">olatomiiwa@example.com</a></p>
+  </section>
 
-  <button id="toggleBtn">Toggle Dark Mode</button>
-  <button id="welcomeBtn">Show Welcome Message</button>
-  <button id="checkDayBtn">Check Day</button>
-  <button id="generateBtn">Generate Numbers</button>
-  <button id="daySwitchBtn">Check Day (Switch)</button>
- <!-- Cookie Demo -->
-<div id="cookieDemo">
-  <h3>🍪 Cookie Demo</h3>
-  <input id="cookieInput" type="text" placeholder="Enter your name" />
-  <br /><br />
-  
- <label class="cookie-option">
-  <input type="radio" name="cookieType" value="session" checked>
-  <span>Session Cookie</span>
-</label>
-
-<label class="cookie-option">
-  <input type="radio" name="cookieType" value="persistent">
-  <span>Persistent Cookie (7 days)</span>
-</label>
-
-  <button id="setCookieBtn">Set Cookie</button>
-  <button id="getCookieBtn">Get Cookie</button>
-  <button id="deleteCookieBtn">Delete Cookie</button>
-
-  <p id="cookieResult">Cookie result will appear here...</p>
-</div>
-<!-- Error Handling Demo -->
-<div id="errorDemo" class="card">
-  <h3>⚠️ Error Handling</h3>
-
-  <input id="errInput" type="text" placeholder="Type a number (e.g., 42)" />
-  <div class="row">
-    <button id="parseBtn">Parse JSON (will fail)</button>
-    <button id="validateBtn">Validate Number</button>
-    <button id="throwBtn">Throw Custom Error</button>
-  </div>
-
-  <div id="errorBox" class="notice">Messages will appear here…</div>
-</div><!-- Redirect Demo -->
-<div id="redirectDemo" class="card">
-  <h3>🌐 Redirect Demo</h3>
-  <p>Click the button below to go to GitHub:</p>
-  <button id="redirectBtn">Go to GitHub</button>
-  <p id="redirectMsg"></p>
-</div>
-   <!-- Operators Demo -->
-<button id="calcBtn">Run Calculator</button>
-<p id="calcResult">Result will show here...</p>
-<button id="compareBtn">Compare (==, ===, >, <=)</button>
-<button id="logicalBtn">Logical (&&, ||, !)</button>
-<button id="ternaryBtn">Ternary (?:)</button>
-  <!-- New animation demo buttons -->
-  <button id="revealBtn">Reveal Box</button>
-  <div id="revealBox" class="hidden-box">✨ Hello!</div>
-
-  <button id="countBtn">Animate Counter</button>
-  <div id="counter" aria-live="polite">0</div>
-
-  <p id="message">Message will appear here...</p>
-  <ul id="numbersList"></ul>
-</section>
-
-<!-- Add a scroll-reveal demo block further down -->
-<section class="reveal-on-scroll">
-  <h3>Animated Section</h3>
-  <p>This content fades in when scrolled into view.</p>
-</section>
-
-<!-- Load JS with defer --> 
-<script src="script.js" defer></script>
 </body>
 </html>
