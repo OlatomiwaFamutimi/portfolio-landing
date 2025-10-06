@@ -45,18 +45,36 @@
     </section>
 
     <!-- JavaScript Demo Section -->
-    <section id="demos">
-      <h2>JavaScript Demos</h2>
+   <section id="jsdemos">
+  <h2>JavaScript Demos</h2>
 
-      <div class="demo-buttons">
-        <button id="toggleBtn">Toggle Dark Mode</button>
-        <button id="checkDayBtn">Check Day</button>
-        <button id="generateBtn">Generate Numbers</button>
-        <button id="redirectBtn">Redirect to GitHub</button>
-      </div>
+  <!-- Top demo buttons -->
+  <div class="btn-row">
+    <button id="toggleBtn" data-theme="dark">Toggle Dark Mode</button>
+    <button id="welcomeBtn">Show Welcome Message</button>
+    <button id="checkDayBtn">Check Day</button>
+    <button id="genNumsBtn">Generate Numbers</button>
+    <button id="redirectBtn">Go to GitHub</button>
+  </div>
 
-      <p id="calcResult"></p>
-    </section>
+  <!-- Messages / results -->
+  <div id="message" class="panel">Message will appear here…</div>
+
+  <!-- Error handling demo -->
+  <h3>⚠️ Error Handling</h3>
+  <input id="errInput" type="text" placeholder="Type a number (e.g., 42)">
+  <div class="btn-row">
+    <button id="parseBtn">Parse JSON (will fail)</button>
+    <button id="validateBtn">Validate Number</button>
+    <button id="throwBtn">Throw Custom Error</button>
+  </div>
+  <div id="error" class="panel dashed">Messages will appear here…</div>
+
+  <!-- Simple calculator demo (optional) -->
+  <h3>Run Calculator</h3>
+  <button id="calcBtn">Run Calculator</button>
+  <div id="calcResult" class="panel success">Result will show here…</div>
+</section>
   </main>
 
   <footer>
