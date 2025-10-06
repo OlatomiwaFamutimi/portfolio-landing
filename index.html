@@ -3,50 +3,67 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Portfolio</title>
+  <title>Olatomiwa’s Portfolio</title>
   <link rel="stylesheet" href="style.css" />
 </head>
-<body>
 
-  <!-- Navigation -->
+<body>
   <header>
-    <nav class="navbar">
-      <h1 class="logo">Olatomiwa</h1>
-      <ul class="nav-links">
+    <h1>🚀 Front-End Web Developer</h1>
+    <nav>
+      <ul>
+        <li><a href="#about" class="active">About</a></li>
         <li><a href="#projects">Projects</a></li>
-        <li><a href="#typography">Typography</a></li>
         <li><a href="#contact">Contact</a></li>
+        <li><a href="#demos">JS Demos</a></li>
       </ul>
     </nav>
   </header>
 
-  <!-- Hero Section -->
-  <section id="about" class="hero">
-    <h1 class="bounce">Hello, I'm Olatomiwa</h1>
-    <p class="fade-in">Welcome to my portfolio landing page!</p>
-    <h2 class="typewriter">I build things with code 💻</h2>
-  </section>
+  <main>
+    <!-- About Section -->
+    <section id="about">
+      <h2>Hello, I’m Olatomiwa 👋</h2>
+      <p>Welcome to my portfolio! I build interactive, accessible, and visually appealing web interfaces using HTML, CSS, and JavaScript.</p>
+      <button id="welcomeBtn">Show Welcome Message</button>
+      <p id="message"></p>
+    </section>
 
-  <!-- Projects Section -->
-  <section id="projects">
-    <h2>Projects</h2>
-    <ul>
-      <li><a href="#" target="_blank">Portfolio Website</a> – Built with HTML & CSS</li>
-      <li><a href="#" target="_blank">E-commerce Mockup</a> – Styled with Bootstrap</li>
-    </ul>
-  </section>
+    <!-- Projects Section -->
+    <section id="projects">
+      <h2>Projects</h2>
+      <ul>
+        <li><a href="#" target="_blank">Portfolio Website</a> — Built with HTML & CSS</li>
+        <li><a href="#" target="_blank">E-commerce Mockup</a> — Styled with Bootstrap</li>
+      </ul>
+    </section>
 
-  <!-- Typography Section -->
-  <section id="typography">
-    <h2>Typography Practice</h2>
-    <h3>Experimenting with text, headings, and design in HTML & CSS.</h3>
-  </section>
+    <!-- Contact Section -->
+    <section id="contact">
+      <h2>Contact</h2>
+      <p>Email: <a href="mailto:famutimiolatomia7@gmail.com">famutimiolatomia7@gmail.com</a></p>
+    </section>
 
-  <!-- Contact Section -->
-  <section id="contact">
-  <h2>Contact</h2>
-  <p>Email: <a href="mailto:famutimiolatomiwa7@gmail.com">famutimiolatomiwa7@gmail.com</a></p>
-</section>
+    <!-- JavaScript Demo Section -->
+    <section id="demos">
+      <h2>JavaScript Demos</h2>
 
+      <div class="demo-buttons">
+        <button id="toggleBtn">Toggle Dark Mode</button>
+        <button id="checkDayBtn">Check Day</button>
+        <button id="generateBtn">Generate Numbers</button>
+        <button id="redirectBtn">Redirect to GitHub</button>
+      </div>
+
+      <p id="calcResult"></p>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 Olatomiwa Famutimi. Built with ❤️ using HTML, CSS & JS.</p>
+  </footer>
+
+  <!-- Connect JS -->
+  <script src="script.js" defer></script>
 </body>
 </html>
