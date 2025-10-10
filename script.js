@@ -260,4 +260,63 @@ window.onerror = function (msg) {
       window.location.href = 'https://github.com';
     }, 1500);
   });
-})();
+})();// script.js
+document.addEventListener('DOMContentLoaded', () => {
+  const $ = (id) => document.getElementById(id);
+
+  function show(targetId, text, type = 'info') {
+    const el = $(targetId);
+    if (!el) return;
+    el.textContent = text;
+    el.className = panel ${type};
+  }
+
+  // Parse / validate number
+  const parseBtn = $('parseBtn');
+  if (parseBtn) {
+    parseBtn.addEventListener('click', () => {
+      const v = $('errorInput').value;
+      try {
+        const n = Number(v);
+        if (Number.isNaN(n)) throw new Error('Not a number');
+        show('error', 'Parsed number: ' + n, 'success');
+      } catch (err) {
+        show('error', 'Error: ' + err.message, 'danger');
+      }
+    });
+  }
+
+  const validateBtn = $('validateBtn');
+  if (validateBtn) {
+    validateBtn.addEventListener('click', () => {
+      const v = $('errorInput').value;
+      if (/^\d+$/.test(v)) {
+        show('error', 'Looks valid ✅', 'success');
+      } else {
+        show('error', 'Please enter digits only.', 'warning');
+      }
+    });
+  }
+
+  const throwBtn = $('throwBtn');
+  if (throwBtn) {
+    throwBtn.addEventListener('click', () => {
+      try {
+        throw new Error('Custom error from demo');
+      } catch (err) {
+        show('error', err.message, 'danger');
+      }
+    });
+  }
+
+  // Simple calculator demo (random product just to show action)
+  const calcBtn = $('calcBtn');
+  if (calcBtn) {
+    calcBtn.addEventListener('click', () => {
+      const a = Math.floor(Math.random() * 10) + 1;
+      const b = Math.floor(Math.random() * 10) + 1;
+      const product = a * b;
+      show('calcResult', ${a} × ${b} = ${product}, 'info');
+    });
+  }
+});
