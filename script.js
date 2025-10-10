@@ -1,101 +1,56 @@
-/* script.js — portfolio demos */
-(() => {
-  "use strict";
+// Minimal smoke-test to verify JS loads and buttons wire up
+document.addEventListener('DOMContentLoaded', function () {
+  console.log('JS loaded');
 
-  // Tiny helpers
-  const $ = (id) => document.getElementById(id);
-  const setText = (id, txt) => { const el = $(id); if (el) el.textContent = txt; };
-  const setHTML = (id, html) => { const el = $(id); if (el) el.innerHTML = html; };
+  function $(id){ return document.getElementById(id); }
+  function setText(id, txt){ const el=$(id); if(el) el.textContent=txt; }
 
-  // Safe get value
-  const val = (id) => ($(id) ? $(id).value : "");
+  const parseBtn = $('parseBtn');
+  const validateBtn = $('validateBtn');
+  const throwBtn = $('throwBtn');
+  const calcBtn = $('calcBtn');
+  const errInput = $('errInput');
 
-  // ========== Error handling demo ==========
-  function handleParse() {
-    try {
-      // Expect a number; deliberately try JSON.parse to demo an error
-      JSON.parse(val("errInput"));
-      setText("error", "Parsed successfully (you probably entered JSON).");
-      $("error").className = "panel success";
-    } catch (e) {
-      setText("error", Parse error: ${e.message});
-      $("error").className = "panel dashed";
-    }
-  }
-
-  function handleValidate() {
-    const n = Number(val("errInput"));
-    if (Number.isNaN(n)) {
-      setText("error", "Please enter a valid number (e.g., 42).");
-      $("error").className = "panel dashed";
-    } else {
-      setText("error", Valid number: ${n});
-      $("error").className = "panel success";
-    }
-  }
-
-  function handleThrow() {
-    try {
-      throw new Error("This is a custom error 🚨");
-    } catch (e) {
-      setText("error", e.message);
-      $("error").className = "panel dashed";
-    }
-  }
-
-  // ========== Simple calculator ==========
-  function runCalc() {
-    // Just a tiny demo—adds 10 to whatever was typed
-    const n = Number(val("errInput"));
-    if (Number.isNaN(n)) {
-      setText("calcResult", "Enter a number above first.");
-      return;
-    }
-    setText("calcResult", Result: ${n + 10});
-  }
-
-  // ========== Extra JS demos ==========
-  function toggleTheme() {
-    document.body.classList.toggle("dark");
-    localStorage.setItem("theme", document.body.classList.contains("dark") ? "dark" : "light");
-  }
-
-  function showWelcome() {
-    setHTML("messageBox", "Welcome 👋 — happy coding!");
-  }
-
-  function checkDay() {
-    const day = new Date().toLocaleDateString(undefined, { weekday: "long" });
-    setText("messageBox", Today is ${day}.);
-  }
-
-  function genNumbers() {
-    const nums = Array.from({ length: 5 }, () => Math.floor(Math.random() * 100));
-    setText("messageBox", Generated: ${nums.join(", ")});
-  }
-
-  function goToGitHub() {
-    window.open("https://github.com/olatomiwafamutimi", "_blank", "noopener");
-  }
-
-  // ========== Wire up once DOM is ready ==========
-  window.addEventListener("DOMContentLoaded", () => {
-    // Restore theme
-    if (localStorage.getItem("theme") === "dark") document.body.classList.add("dark");
-
-    // Error handling buttons
-    $("parseBtn")?.addEventListener("click", handleParse);
-    $("validateBtn")?.addEventListener("click", handleValidate);
-    $("throwBtn")?.addEventListener("click", handleThrow);
-
-    // Calculator
-    $("calcBtn")?.addEventListener("click", runCalc);
-
-    // Extra demos (only attach if elements exist in your HTML)
-    $("themeBtn")?.addEventListener("click", toggleTheme);
-    $("welcomeBtn")?.addEventListener("click", showWelcome);
-    $("dayBtn")?.addEventListener("click", checkDay);
-    $("genBtn")?.addEventListener("click", genNumbers);
-    $("githubBtn")?.addEventListener("click", goToGitHub);
+  if (parseBtn) parseBtn.addEventListener('click', function () {
+    try { JSON.parse(errInput ? errInput.value : ''); setText('error','Parsed OK'); }
+    catch(e){ setText('error','Parse error: ' + e.message); }
   });
-})();
+
+  if (validateBtn) validateBtn.addEventListener('click', function () {
+    const n = Number(errInput ? errInput.value : '');
+    setText('error', Number.isNaN(n) ? 'Not a number' : 'Valid number: ' + n);
+  });
+
+  if (throwBtn) throwBtn.addEventListener('click', function () {
+    try { throw new Error('Custom error'); }
+    catch(e){ setText('error', e.message); }
+  });
+
+  if (calcBtn) calcBtn.addEventListener('click', function () {
+    const n = Number(errInput ? errInput.value : '');
+    setText('calcResult', Number.isNaN(n) ? 'Enter a number first' : 'Result: ' + (n + 10));
+  });
+
+  // Optional extra demo buttons if you have them:
+  const themeBtn = $('themeBtn');
+  const welcomeBtn = $('welcomeBtn');
+  const dayBtn = $('dayBtn');
+  const genBtn = $('genBtn');
+  const githubBtn = $('githubBtn');
+
+  if (themeBtn) themeBtn.addEventListener('click', function(){
+    document.body.classList.toggle('dark');
+  });
+  if (welcomeBtn) welcomeBtn.addEventListener('click', function(){
+    setText('messageBox','Welcome - happy coding!');
+  });
+  if (dayBtn) dayBtn.addEventListener('click', function(){
+    setText('messageBox', 'Today is ' + new Date().toLocaleDateString(undefined,{weekday:'long'}));
+  });
+  if (genBtn) genBtn.addEventListener('click', function(){
+    setText('messageBox', 'Generated: ' + Array.from({length:5},()=>Math.floor(Math.random()*100)).join(', '));
+  });
+  if (githubBtn) githubBtn.addEventListener('click', function(){
+    window.open('https://github.com/olatomiwafamutimi','_blank','noopener');
+  });
+});
