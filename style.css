@@ -109,4 +109,29 @@ body.dark{
 @media (max-width: 520px){
   nav a{ padding:8px 10px; }
   button{ width:100%; }
+}/* ===== Dark Mode ===== */
+body.dark-mode {
+  background-color: #111;
+  color: #eee;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+body.dark-mode a {
+  color: #4fa3ff;
+}
+
+body.dark-mode .panel {
+  background-color: #1a1a1a;
+  border-color: #333;
+}
+
+body.dark-mode button {
+  background-color: #333;
+  color: #eee;
+  border: 1px solid #555;
+}
+
+body.dark-mode button:hover {
+  background-color: #4fa3ff;
+  color: #111;
 }
