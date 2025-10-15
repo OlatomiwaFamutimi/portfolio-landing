@@ -1,41 +1,36 @@
+'use strict';
+
 document.addEventListener('DOMContentLoaded', () => {
   console.log('JS connected ✅');
 
+  // helpers
   const $ = (id) => document.getElementById(id);
-  const setMsg = (txt) => { const el = $('message'); if (el) el.textContent = txt; };
-  const on = (id, fn) => { const el = $(id); if (el) el.addEventListener('click', fn); };
+  const setText = (id, txt) => { const el = $(id); if (el) el.textContent = txt; };
+  const bind = (id, fn) => { const el = $(id); if (el) el.addEventListener('click', fn); };
 
-  // Toggle theme
-  on('toggleThemeBtn', () => document.body.classList.toggle('dark'));
+  // --- Top row demos ---
+  bind('toggleThemeBtn', () => document.body.classList.toggle('dark'));
+  bind('welcomeBtn', () => setText('message', 'Welcome! Happy to have you here 😊'));
+  bind('checkDayBtn', () =>
+    setText('message', Today is ${new Date().toLocaleDateString(undefined,{weekday:'long'})}));
+  bind('genBtn', () => setText('message', Random: ${Math.floor(Math.random()*100)}));
+  bind('ghBtn', () => window.open('https://github.com/olatomiwafamutimi','_blank','noopener'));
 
-  // Welcome message
-  on('welcomeBtn', () => setMsg('Welcome to my portfolio 👋'));
-
-  // Check day
-  on('checkDayBtn', () => setMsg(Today is ${new Date().toLocaleDateString()}));
-
-  // Generate random number
-  on('genBtn', () => setMsg(Random number: ${Math.floor(Math.random() * 100)}));
-
-  // Go to GitHub
-  on('ghBtn', () => window.open('https://github.com/olatomiwafamutimi', '_blank'));
-
-  // Error handling demos
-  on('parseBtn', () => {
-    try { JSON.parse('{ invalid JSON }'); }
-    catch (e) { setMsg(Parse error: ${e.message}); }
+  // --- Error handling demos ---
+  bind('parseBtn', () => {
+    try { JSON.parse('{ broken json '); }
+    catch (err) { setText('error', Parse error: ${err.message}); }
   });
 
-  on('validateBtn', () => {
-    const v = Number(($('errInput') || {}).value);
-    setMsg(Number.isFinite(v) ? Valid number: ${v} : 'Please enter a valid number');
+  bind('validateBtn', () => {
+    const v = $('errInput')?.value ?? '';
+    const n = Number(v);
+    if (Number.isNaN(n)) setText('error', 'Please enter a valid number.');
+    else setText('error', Thanks! ${n} is a number.);
   });
 
-  on('throwBtn', () => {
-    try { throw new Error('Custom error fired 🚨'); }
-    catch (e) { setMsg(e.message); }
+  bind('throwBtn', () => {
+    try { throw new Error('Custom error raised'); }
+    catch (err) { setText('error', err.message); }
   });
-
-  // Simple calculator demo
-  on('calcBtn', () => setMsg(2 + 3 = ${2 + 3}));
 });
