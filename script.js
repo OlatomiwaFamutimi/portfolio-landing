@@ -1,7 +1,10 @@
+<<<<<<< Updated upstream
 'use strict';
 
 document.addEventListener('DOMContentLoaded', () => {
   console.log('JS connected ✅');
+=======
+>>>>>>> Stashed changes
 
   // helpers
   const $ = (id) => document.getElementById(id);
