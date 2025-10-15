@@ -1,39 +1,98 @@
-<<<<<<< Updated upstream
-'use strict';
-
+// Wait until page fully loads
 document.addEventListener('DOMContentLoaded', () => {
   console.log('JS connected ✅');
-=======
->>>>>>> Stashed changes
 
-  // helpers
-  const $ = (id) => document.getElementById(id);
-  const setText = (id, txt) => { const el = $(id); if (el) el.textContent = txt; };
-  const bind = (id, fn) => { const el = $(id); if (el) el.addEventListener('click', fn); };
+  // Helper function to update text
+  const setText = (id, msg) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = msg;
+  };
 
-  // --- Top row demos ---
-  bind('toggleThemeBtn', () => document.body.classList.toggle('dark'));
-  bind('welcomeBtn', () => setText('message', 'Welcome! Happy to have you here 😊'));
-  bind('checkDayBtn', () =>
-    setText('message', Today is ${new Date().toLocaleDateString(undefined,{weekday:'long'})}));
-  bind('genBtn', () => setText('message', Random: ${Math.floor(Math.random()*100)}));
-  bind('ghBtn', () => window.open('https://github.com/olatomiwafamutimi','_blank','noopener'));
+  // ===== Toggle Dark Mode =====
+  const toggleBtn = document.getElementById('toggleBtn');
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+      setText('message', 'Dark mode toggled 🌙');
+    });
+  }
 
-  // --- Error handling demos ---
-  bind('parseBtn', () => {
-    try { JSON.parse('{ broken json '); }
-    catch (err) { setText('error', Parse error: ${err.message}); }
-  });
+  // ===== Show Welcome Message =====
+  const welcomeBtn = document.getElementById('welcomeBtn');
+  if (welcomeBtn) {
+    welcomeBtn.addEventListener('click', () => {
+      setText('message', '👋 Welcome to my portfolio!');
+    });
+  }
 
-  bind('validateBtn', () => {
-    const v = $('errInput')?.value ?? '';
-    const n = Number(v);
-    if (Number.isNaN(n)) setText('error', 'Please enter a valid number.');
-    else setText('error', Thanks! ${n} is a number.);
-  });
+  // ===== Check Day =====
+  const checkDayBtn = document.getElementById('checkDayBtn');
+  if (checkDayBtn) {
+    checkDayBtn.addEventListener('click', () => {
+      const day = new Date().toLocaleDateString('en-US', { weekday: 'long' });
+      setText('message', Today is ${day});
+    });
+  }
 
-  bind('throwBtn', () => {
-    try { throw new Error('Custom error raised'); }
-    catch (err) { setText('error', err.message); }
-  });
+  // ===== Generate Numbers =====
+  const genBtn = document.getElementById('genBtn');
+  if (genBtn) {
+    genBtn.addEventListener('click', () => {
+      const num = Math.floor(Math.random() * 100);
+      setText('message', Generated number: ${num});
+    });
+  }
+
+  // ===== Go to GitHub =====
+  const githubBtn = document.getElementById('githubBtn');
+  if (githubBtn) {
+    githubBtn.addEventListener('click', () => {
+      window.open('https://github.com/OlatomiwaFamutimi', '_blank');
+    });
+  }
+
+  // ===== Error Handling =====
+  const parseBtn = document.getElementById('parseBtn');
+  const validateBtn = document.getElementById('validateBtn');
+  const throwBtn = document.getElementById('throwBtn');
+
+  if (parseBtn) {
+    parseBtn.addEventListener('click', () => {
+      try {
+        JSON.parse('{ bad json }');
+      } catch (err) {
+        setText('error', ❌ JSON Error: ${err.message});
+      }
+    });
+  }
+
+  if (validateBtn) {
+    validateBtn.addEventListener('click', () => {
+      const val = document.getElementById('errInput').value;
+      if (isNaN(val)) {
+        setText('error', '❌ Please enter a valid number!');
+      } else {
+        setText('error', '✅ Number looks good!');
+      }
+    });
+  }
+
+  if (throwBtn) {
+    throwBtn.addEventListener('click', () => {
+      try {
+        throw new Error('Custom error thrown!');
+      } catch (err) {
+        setText('error', ⚠️ ${err.message});
+      }
+    });
+  }
+
+  // ===== Calculator =====
+  const calcBtn = document.getElementById('calcBtn');
+  if (calcBtn) {
+    calcBtn.addEventListener('click', () => {
+      const result = 7 * 6; // Example calculation
+      setText('calcResult', Result: ${result});
+    });
+  }
 });
