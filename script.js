@@ -1,101 +1,182 @@
-// script.js
-document.addEventListener('DOMContentLoaded', () => {
-  console.log('JS connected ✅');
+// script.js (clean ASCII version)
 
-  // Helper to set text in a target element
+document.addEventListener('DOMContentLoaded', () => {
+
+  // helper to set text
+
   const setText = (id, msg) => {
+
     const el = document.getElementById(id);
+
     if (el) el.textContent = msg;
+
   };
 
-  // Top-row demo buttons
+
+
+  // Top-row buttons
+
   const toggleBtn   = document.getElementById('toggleThemeBtn');
+
   const welcomeBtn  = document.getElementById('welcomeBtn');
+
   const checkDayBtn = document.getElementById('checkDayBtn');
+
   const genBtn      = document.getElementById('genBtn');
+
   const githubBtn   = document.getElementById('githubBtn');
 
-  // Dark mode toggle
+
+
   if (toggleBtn) {
+
     toggleBtn.addEventListener('click', () => {
+
       document.body.classList.toggle('dark');
-      setText('message', '🌙 Dark mode toggled');
+
+      setText('message', 'Dark mode toggled');
+
     });
+
   }
 
-  // Welcome message
+
+
   if (welcomeBtn) {
+
     welcomeBtn.addEventListener('click', () => {
-      setText('message', `👋 Welcome to my portfolio!`);
+
+      setText('message', 'Welcome to my portfolio!');
+
     });
+
   }
 
-  // Check current day
+
+
   if (checkDayBtn) {
+
     checkDayBtn.addEventListener('click', () => {
+
       const day = new Date().toLocaleDateString('en-US', { weekday: 'long' });
-      setText('message', `📅 Today is ${day}`);
+
+      setText('message', `Today is ${day}`);
+
     });
+
   }
 
-  // Generate random number
+
+
   if (genBtn) {
+
     genBtn.addEventListener('click', () => {
+
       const n = Math.floor(Math.random() * 100);
-      setText('message',`🔢 Generated number: ${n}`);
+
+      setText('message', `Generated number: ${n}`);
+
     });
+
   }
 
-  // GitHub link
+
+
   if (githubBtn) {
+
     githubBtn.addEventListener('click', () => {
+
       window.open('https://github.com/OlatomiwaFamutimi', '_blank');
+
     });
+
   }
 
-  // Error handling demo
-  const parseBtn     = document.getElementById('parseBtn');
-  const validateBtn  = document.getElementById('validateBtn');
-  const throwBtn     = document.getElementById('throwBtn');
+
+
+  // Error-handling demo
+
+  const parseBtn    = document.getElementById('parseBtn');
+
+  const validateBtn = document.getElementById('validateBtn');
+
+  const throwBtn    = document.getElementById('throwBtn');
+
+
 
   if (parseBtn) {
+
     parseBtn.addEventListener('click', () => {
+
       try {
+
         JSON.parse('bad json'); // will throw
+
         setText('error', 'Parsed OK');
+
       } catch (err) {
-        setText('error', ❌ JSON Error: ${err.message});
+
+        setText('error', `JSON Error: ${err.message}`);
+
       }
+
     });
+
   }
+
+
 
   if (validateBtn) {
+
     validateBtn.addEventListener('click', () => {
+
       const val = document.getElementById('errInput')?.value;
-      if (isNaN(Number(val))) {
-        setText('error', '⚠️ Please enter a valid number!');
-      } else {
-        setText('error', '✅ Number looks good!');
-      }
+
+      if (isNaN(Number(val))) setText('error', 'Please enter a valid number!');
+
+      else setText('error', 'Number looks good!');
+
     });
+
   }
+
+
 
   if (throwBtn) {
+
     throwBtn.addEventListener('click', () => {
+
       try {
+
         throw new Error('Custom error thrown');
+
       } catch (err) {
-        setText('error', ⚠️ ${err.message});
+
+        setText('error', `Error: ${err.message}`);
+
       }
+
     });
+
   }
 
+
+
   // Calculator (optional)
+
   const calcBtn = document.getElementById('calcBtn');
+
   if (calcBtn) {
+
     calcBtn.addEventListener('click', () => {
-      const result = 2 + 6; // demo calculation
-      setText('calcResult',🧮 Result: ${result}`);
+
+      const result = 2 + 6;
+
+      setText('calcResult', `Result: ${result}`);
+
     });
+
   }
+
 });
+
