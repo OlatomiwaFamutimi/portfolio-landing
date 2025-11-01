@@ -1,4 +1,4 @@
-// script.js (clean ASCII version)
+// script.js (clean ASCII only)
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -14,9 +14,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-  // Top-row buttons
+  // Top-row buttons (match your HTML IDs)
 
-  const toggleBtn   = document.getElementById('toggleThemeBtn');
+  const toggleBtn   = document.getElementById('themeBtn');   // <— was toggleThemeBtn
 
   const welcomeBtn  = document.getElementById('welcomeBtn');
 
@@ -130,7 +130,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     validateBtn.addEventListener('click', () => {
 
-      const val = document.getElementById('errInput')?.value;
+      const input = document.getElementById('errInput');
+
+      const val = input ? input.value : '';
 
       if (isNaN(Number(val))) setText('error', 'Please enter a valid number!');
 
@@ -179,4 +181,3 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 });
-
