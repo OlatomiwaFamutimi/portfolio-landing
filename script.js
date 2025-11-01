@@ -2,14 +2,14 @@
 document.addEventListener('DOMContentLoaded', () => {
   console.log('JS connected ✅');
 
-  // helper to set text in a target element
+  // Helper to set text in a target element
   const setText = (id, msg) => {
     const el = document.getElementById(id);
     if (el) el.textContent = msg;
   };
 
   // Top-row demo buttons
-  const toggleBtn   = document.getElementById('toggleThemeBtn');
+  const toggleBtn   = document.getElementById('themeBtn');
   const welcomeBtn  = document.getElementById('welcomeBtn');
   const checkDayBtn = document.getElementById('checkDayBtn');
   const genBtn      = document.getElementById('genBtn');
