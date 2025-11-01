@@ -9,12 +9,13 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // Top-row demo buttons
-  const toggleBtn   = document.getElementById('themeBtn');
+  const toggleBtn   = document.getElementById('toggleThemeBtn');
   const welcomeBtn  = document.getElementById('welcomeBtn');
   const checkDayBtn = document.getElementById('checkDayBtn');
   const genBtn      = document.getElementById('genBtn');
   const githubBtn   = document.getElementById('githubBtn');
 
+  // Dark mode toggle
   if (toggleBtn) {
     toggleBtn.addEventListener('click', () => {
       document.body.classList.toggle('dark');
@@ -22,26 +23,30 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Welcome message
   if (welcomeBtn) {
     welcomeBtn.addEventListener('click', () => {
-      setText('message', '👋 Welcome to my portfolio!');
+      setText('message', `👋 Welcome to my portfolio!`);
     });
   }
 
+  // Check current day
   if (checkDayBtn) {
     checkDayBtn.addEventListener('click', () => {
       const day = new Date().toLocaleDateString('en-US', { weekday: 'long' });
-      setText('message', 📅 Today is ${day});
+      setText('message', `📅 Today is ${day}`);
     });
   }
 
+  // Generate random number
   if (genBtn) {
     genBtn.addEventListener('click', () => {
       const n = Math.floor(Math.random() * 100);
-      setText('message',🔢 Generated number: ${n}`);
+      setText('message',`🔢 Generated number: ${n}`);
     });
   }
 
+  // GitHub link
   if (githubBtn) {
     githubBtn.addEventListener('click', () => {
       window.open('https://github.com/OlatomiwaFamutimi', '_blank');
