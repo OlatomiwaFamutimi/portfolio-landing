@@ -3,11 +3,10 @@ document.addEventListener('DOMContentLoaded', () => {
   console.log('JS connected ✅');
 
   // helpers
-  const $  = (id) => document.getElementById(id);
+  const $ = (id) => document.getElementById(id);
   const setText = (id, msg) => { const el = $(id); if (el) el.textContent = msg; };
 
   // ------- Top row -------
-  // Toggle Dark Mode
   const toggleBtn = $('toggleThemeBtn');
   if (toggleBtn) {
     toggleBtn.addEventListener('click', () => {
@@ -16,7 +15,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Show Welcome Message
   const welcomeBtn = $('welcomeBtn');
   if (welcomeBtn) {
     welcomeBtn.addEventListener('click', () => {
@@ -24,7 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Check Day
   const checkDayBtn = $('checkDayBtn');
   if (checkDayBtn) {
     checkDayBtn.addEventListener('click', () => {
@@ -33,7 +30,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Generate Numbers
   const genBtn = $('genBtn');
   if (genBtn) {
     genBtn.addEventListener('click', () => {
@@ -41,7 +37,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Go to GitHub
   const githubBtn = $('githubBtn');
   if (githubBtn) {
     githubBtn.addEventListener('click', () => {
@@ -50,17 +45,14 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ------- Error handling demo -------
-  const parseBtn     = $('parseBtn');
-  const validateBtn  = $('validateBtn');
-  const throwBtn     = $('throwBtn');
+  const parseBtn = $('parseBtn');
+  const validateBtn = $('validateBtn');
+  const throwBtn = $('throwBtn');
 
   if (parseBtn) {
     parseBtn.addEventListener('click', () => {
-      try {
-        JSON.parse('{ bad json }'); // will throw
-      } catch (err) {
-        setText('error', ❌ JSON Error: ${err.message});
-      }
+      try { JSON.parse('{ bad json }'); }            // will throw
+      catch (err) { setText('error', ❌ JSON Error: ${err.message}); }
     });
   }
 
@@ -79,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ------- Calculator (optional) -------
+  // ------- Calculator -------
   const calcBtn = $('calcBtn');
   if (calcBtn) {
     calcBtn.addEventListener('click', () => {
