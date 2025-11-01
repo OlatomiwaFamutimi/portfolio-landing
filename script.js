@@ -1,15 +1,14 @@
-// Wait until page fully loads
+// script.js
 document.addEventListener('DOMContentLoaded', () => {
   console.log('JS connected ✅');
 
-  // Helper function to update text
-  const setText = (id, msg) => {
-    const el = document.getElementById(id);
-    if (el) el.textContent = msg;
-  };
+  // helpers
+  const $  = (id) => document.getElementById(id);
+  const setText = (id, msg) => { const el = $(id); if (el) el.textContent = msg; };
 
-  // ===== Toggle Dark Mode =====
-  const toggleBtn = document.getElementById('toggleBtn');
+  // ------- Top row -------
+  // Toggle Dark Mode
+  const toggleBtn = $('toggleThemeBtn');
   if (toggleBtn) {
     toggleBtn.addEventListener('click', () => {
       document.body.classList.toggle('dark');
@@ -17,16 +16,16 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ===== Show Welcome Message =====
-  const welcomeBtn = document.getElementById('welcomeBtn');
+  // Show Welcome Message
+  const welcomeBtn = $('welcomeBtn');
   if (welcomeBtn) {
     welcomeBtn.addEventListener('click', () => {
-      setText('message', '👋 Welcome to my portfolio!');
+      setText('message', 'Welcome to my portfolio!');
     });
   }
 
-  // ===== Check Day =====
-  const checkDayBtn = document.getElementById('checkDayBtn');
+  // Check Day
+  const checkDayBtn = $('checkDayBtn');
   if (checkDayBtn) {
     checkDayBtn.addEventListener('click', () => {
       const day = new Date().toLocaleDateString('en-US', { weekday: 'long' });
@@ -34,32 +33,31 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ===== Generate Numbers =====
-  const genBtn = document.getElementById('genBtn');
+  // Generate Numbers
+  const genBtn = $('genBtn');
   if (genBtn) {
     genBtn.addEventListener('click', () => {
-      const num = Math.floor(Math.random() * 100);
-      setText('message', Generated number: ${num});
+      setText('message', 'Clicked! ' + Math.floor(Math.random() * 100));
     });
   }
 
-  // ===== Go to GitHub =====
-  const githubBtn = document.getElementById('githubBtn');
+  // Go to GitHub
+  const githubBtn = $('githubBtn');
   if (githubBtn) {
     githubBtn.addEventListener('click', () => {
       window.open('https://github.com/OlatomiwaFamutimi', '_blank');
     });
   }
 
-  // ===== Error Handling =====
-  const parseBtn = document.getElementById('parseBtn');
-  const validateBtn = document.getElementById('validateBtn');
-  const throwBtn = document.getElementById('throwBtn');
+  // ------- Error handling demo -------
+  const parseBtn     = $('parseBtn');
+  const validateBtn  = $('validateBtn');
+  const throwBtn     = $('throwBtn');
 
   if (parseBtn) {
     parseBtn.addEventListener('click', () => {
       try {
-        JSON.parse('{ bad json }');
+        JSON.parse('{ bad json }'); // will throw
       } catch (err) {
         setText('error', ❌ JSON Error: ${err.message});
       }
@@ -68,30 +66,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (validateBtn) {
     validateBtn.addEventListener('click', () => {
-      const val = document.getElementById('errInput').value;
-      if (isNaN(val)) {
-        setText('error', '❌ Please enter a valid number!');
-      } else {
-        setText('error', '✅ Number looks good!');
-      }
+      const val = $('errInput')?.value;
+      if (isNaN(val)) setText('error', '❌ Please enter a valid number!');
+      else            setText('error', '✅ Number looks good!');
     });
   }
 
   if (throwBtn) {
     throwBtn.addEventListener('click', () => {
-      try {
-        throw new Error('Custom error thrown!');
-      } catch (err) {
-        setText('error', ⚠️ ${err.message});
-      }
+      try { throw new Error('Custom error thrown'); }
+      catch (err) { setText('error', ⚠️ ${err.message}); }
     });
   }
 
-  // ===== Calculator =====
-  const calcBtn = document.getElementById('calcBtn');
+  // ------- Calculator (optional) -------
+  const calcBtn = $('calcBtn');
   if (calcBtn) {
     calcBtn.addEventListener('click', () => {
-      const result = 7 * 6; // Example calculation
+      const result = 2 + 6; // example
       setText('calcResult', Result: ${result});
     });
   }
