@@ -27,9 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (checkDayBtn) {
     checkDayBtn.addEventListener('click', () => {
-      const day = new Date().toLocaleDateString('en-US', { weekday: 'long' });
-      setText('message', Today is ${day});
-    });
+  setText('message', Today is ${day});
+});
   }
 
   if (genBtn) {
